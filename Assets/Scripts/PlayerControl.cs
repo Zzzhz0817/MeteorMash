@@ -12,7 +12,7 @@ public class PlayerControl : MonoBehaviour
     public float cameraResetSpeed = 1f;
     public float maxCameraAngle = 100f;
 
-    private Rigidbody rb;
+    public Rigidbody rb;
     private Transform cameraTransform;
     private bool isGrabbing = false;
     private float pullSpeed = 0f;
