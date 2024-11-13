@@ -131,10 +131,6 @@ public class PlayerControl : MonoBehaviour
         {
             ReleaseMeteor();
         }
-        else if (!grabLeft && !grabRight && isGrabbing)
-        {
-            JumpFromMeteor();
-        }
     }
 
     private void TryGrabMeteor()
@@ -142,7 +138,7 @@ public class PlayerControl : MonoBehaviour
         Collider[] nearbyObjects = Physics.OverlapSphere(transform.position, 2f);
         foreach (Collider obj in nearbyObjects)
         {
-            if (obj.CompareTag("Meteor"))
+            if (obj.CompareTag("Meteor") || obj.CompareTag("Ship"))
             {
                 currentMeteor = obj.gameObject;
                 meteorCenter = currentMeteor.transform.position;
