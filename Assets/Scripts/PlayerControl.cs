@@ -11,10 +11,10 @@ public class PlayerControl : MonoBehaviour
     public float detachForce = 2f;
     public float cameraResetSpeed = 1f;
     public float maxCameraAngle = 100f;
-
+    //to implement - push value
     private Rigidbody rb;
     private Transform cameraTransform;
-    private bool isGrabbing = false;
+    protected bool isGrabbing = false;
     private float pullSpeed = 0f;
     private GameObject currentMeteor;
     private Vector3 meteorCenter;
@@ -145,6 +145,7 @@ public class PlayerControl : MonoBehaviour
                 meteorNormal = (transform.position - meteorCenter).normalized;
 
                 isGrabbing = true;
+                //change state here
                 rb.velocity = Vector3.zero;
                 return;
             }
@@ -156,6 +157,7 @@ public class PlayerControl : MonoBehaviour
         if (!isGrabbing) return;
 
         isGrabbing = false;
+        //change state here
         Vector3 detachDirection = (transform.position - meteorCenter).normalized;
         rb.AddForce(detachDirection * detachForce, ForceMode.Impulse);
         pullSpeed = 0;
@@ -170,6 +172,7 @@ public class PlayerControl : MonoBehaviour
         rb.AddForce(jumpDirection * pullSpeed, ForceMode.Impulse);
 
         isGrabbing = false;
+        //change state here
         pullSpeed = 0;
         currentMeteor = null;
     }
