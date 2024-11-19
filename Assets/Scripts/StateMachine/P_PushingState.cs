@@ -1,9 +1,20 @@
+using UnityEngine;
+
 public class P_PushingState : P_State
 {
+    private float power = 0f;
+    private bool increasing = true;
 
     public override void EnterState(P_StateManager player)
     {
         player.anim.SetBool("Push-Away", true);
+=======
+        //disable all movement
+        player.rb.isKinematic = true;
+        power = 0f;
+        increasing = true;
+
+>>>>>>> Stashed changes
     }
 
 
@@ -24,6 +35,51 @@ public class P_PushingState : P_State
             player.SwitchState(player.pushingState);
         }
         */
+         // Power bar logic
+        float powerSpeed = 1f; // Adjust as needed
+        power += (increasing ? 1 : -1) * powerSpeed * Time.deltaTime;
+        if (power >= 1f)
+        {
+            power = 1f;
+            increasing = false;
+        }
+        else if (power <= 0f)
+        {
+            power = 0f;
+            increasing = true;
+        }
+
+        // State transitions
+        if (!Input.GetMouseButton(1))
+        {
+            player.SwitchState(player.previousState);
+            return;
+        }
+
+        if (!Input.GetMouseButton(0))
+        {
+            // Perform push
+            Vector3 pushDirection;
+            if (player.previousState == player.aimingState)
+            {
+                pushDirection = player.transform.forward;
+            }
+            else
+            {
+                pushDirection = (player.transform.position - player.groundedObject.position).normalized;
+            }
+
+            player.rb.isKinematic = false;
+            player.rb.AddForce(pushDirection * power * player.acceleration, ForceMode.Impulse);
+            player.SwitchState(player.flyingState);
+            return;
+        }
+    }
+    
+    public override void ExitState(P_StateManager player)
+    {
+        player.rb.isKinematic = false;
+        power = 0f;
     }
 
 
