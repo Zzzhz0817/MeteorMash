@@ -8,13 +8,8 @@ public class P_PushingState : P_State
     public override void EnterState(P_StateManager player)
     {
         player.anim.SetBool("Push-Away", true);
-=======
-        //disable all movement
-        player.rb.isKinematic = true;
         power = 0f;
         increasing = true;
-
->>>>>>> Stashed changes
     }
 
 
@@ -36,7 +31,8 @@ public class P_PushingState : P_State
         }
         */
          // Power bar logic
-        float powerSpeed = 1f; // Adjust as needed
+
+        float powerSpeed = 1f;
         power += (increasing ? 1 : -1) * powerSpeed * Time.deltaTime;
         if (power >= 1f)
         {
@@ -60,32 +56,18 @@ public class P_PushingState : P_State
         {
             // Perform push
             Vector3 pushDirection;
-            if (player.previousState == player.aimingState)
-            {
-                pushDirection = player.transform.forward;
-            }
-            else
-            {
-                pushDirection = (player.transform.position - player.groundedObject.position).normalized;
-            }
 
-            player.rb.isKinematic = false;
+            pushDirection = player.transform.forward;
+
             player.rb.AddForce(pushDirection * power * player.acceleration, ForceMode.Impulse);
             player.SwitchState(player.flyingState);
             return;
         }
     }
-    
+
     public override void ExitState(P_StateManager player)
     {
-        player.rb.isKinematic = false;
+        player.anim.SetBool("Push-Away", false);
         power = 0f;
     }
-
-
-public override void ExitState(P_StateManager player)
-    {
-        player.anim.SetBool("Push-Away", false);
-    }
-
 }
