@@ -6,7 +6,7 @@ public class P_GrabbingState : P_State
 {
     public override void EnterState(P_StateManager player)
     {
-        //disable all movement controls
+        player.anim.SetBool("Landing", true);
     }
 
 
@@ -33,4 +33,10 @@ public class P_GrabbingState : P_State
             player.SwitchState(player.groundedState);
         }
     }
+
+    public override void ExitState(P_StateManager player) 
+    {
+        player.anim.SetBool("Landing", false);
+    }
+
 }

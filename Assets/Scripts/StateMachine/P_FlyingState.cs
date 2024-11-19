@@ -7,6 +7,7 @@ public class P_FlyingState : P_State
     public override void EnterState(P_StateManager player)
     {
         player.rb.drag = player.drag;
+        player.anim.SetBool("Flying", true);
     }
 
 
@@ -64,6 +65,11 @@ public class P_FlyingState : P_State
         {
             player.SwitchState(player.grabbingState);
         }
+    }
+
+    public override void ExitState(P_StateManager player)
+    {
+        player.anim.SetBool("Flying", false);
     }
 
     private void ApplyDrag(P_StateManager player)

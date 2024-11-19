@@ -3,7 +3,7 @@ public class P_PushingState : P_State
 
     public override void EnterState(P_StateManager player)
     {
-        //disable all movement
+        player.anim.SetBool("Push-Away", true);
     }
 
 
@@ -25,4 +25,11 @@ public class P_PushingState : P_State
         }
         */
     }
+
+
+public override void ExitState(P_StateManager player)
+    {
+        player.anim.SetBool("Push-Away", false);
+    }
+
 }
