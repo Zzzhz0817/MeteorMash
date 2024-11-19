@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class P_StateManager : MonoBehaviour
 {
+
+    #region States
     public P_State currentState;
     public P_State previousState;
 
@@ -15,21 +17,30 @@ public class P_StateManager : MonoBehaviour
     public P_DialogueState dialogueState = new P_DialogueState();
     public P_PausedState pausedState = new P_PausedState();
 
+    #endregion
+
+
+    #region
     [HideInInspector]
     public Rigidbody rb;
     [HideInInspector]
     public Transform groundedObject;
+    [HideInInspector]
+    public Animator anim;
+    #endregion
 
-    // Movement variables
+    #region Movement Variables
     public float moveSpeed = 10f;
     public float rotationSpeed = 500f;
     public float rollSpeed = 50f;
     public float acceleration = 50f;
     public float drag = 0.1f;
+    #endregion
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        anim = GetComponentInChildren<Animator>();
         currentState = flyingState;
 
         currentState.EnterState(this);

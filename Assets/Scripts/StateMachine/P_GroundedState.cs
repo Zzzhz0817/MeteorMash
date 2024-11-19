@@ -7,8 +7,9 @@ public class P_GroundedState : P_State
         //enable grounded movement
         player.rb.isKinematic = true;
         player.transform.SetParent(player.groundedObject);
-
         AlignWithSurfaceNormal(player);
+        player.anim.SetBool("Crawl-Idle", true);
+
     }
 
     public override void UpdateState(P_StateManager player)
@@ -82,6 +83,7 @@ public class P_GroundedState : P_State
     {
         player.transform.SetParent(null);
         player.rb.isKinematic = false;
+        player.anim.SetBool("Crawl-Idle", false);
     }
 
     private void MoveAlongSphere(P_StateManager player, float horizontalInput, float verticalInput)
@@ -107,4 +109,6 @@ public class P_GroundedState : P_State
 
         player.transform.forward = -normal;
     }
+
+
 }
