@@ -44,6 +44,7 @@ public class P_StateManager : MonoBehaviour
         currentState = flyingState;
 
         currentState.EnterState(this);
+        rb.constraints = RigidbodyConstraints.FreezeRotation;
 
     }
 

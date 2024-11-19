@@ -3,13 +3,12 @@ using UnityEngine;
 public class P_PushingState : P_State
 {
     private float power = 0f;
-    private bool increasing = true;
+    private float maxPower = 10f;
 
     public override void EnterState(P_StateManager player)
     {
         player.anim.SetBool("Push-Away", true);
         power = 0f;
-        increasing = true;
     }
 
 
@@ -32,20 +31,13 @@ public class P_PushingState : P_State
         */
          // Power bar logic
 
-        float powerSpeed = 1f;
-        power += (increasing ? 1 : -1) * powerSpeed * Time.deltaTime;
-        if (power >= 1f)
+        float powerSpeed = 3f;
+        if (power < maxPower)
         {
-            power = 1f;
-            increasing = false;
-        }
-        else if (power <= 0f)
-        {
-            power = 0f;
-            increasing = true;
+            power += powerSpeed * Time.deltaTime;
         }
 
-        // State transitions
+
         if (!Input.GetMouseButton(1))
         {
             player.SwitchState(player.previousState);
@@ -54,12 +46,10 @@ public class P_PushingState : P_State
 
         if (!Input.GetMouseButton(0))
         {
-            // Perform push
             Vector3 pushDirection;
-
             pushDirection = player.transform.forward;
 
-            player.rb.AddForce(pushDirection * power * player.acceleration, ForceMode.Impulse);
+            player.rb.AddForce(pushDirection * power, ForceMode.Impulse);
             player.SwitchState(player.flyingState);
             return;
         }
