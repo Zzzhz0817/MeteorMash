@@ -451,8 +451,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 963194228}
   - {fileID: 1053752713}
+  - {fileID: 963194228}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &557694064
@@ -492,6 +492,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
   groundedObject: {fileID: 0}
+  anim: {fileID: 0}
   moveSpeed: 0.5
   rotationSpeed: 500
   rollSpeed: 50
@@ -1543,17 +1544,17 @@ PrefabInstance:
     - target: {fileID: 8602629685334918055, guid: 14dce1ade2be39b4eaa49cd82854f618,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8602629685334918055, guid: 14dce1ade2be39b4eaa49cd82854f618,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8602629685334918055, guid: 14dce1ade2be39b4eaa49cd82854f618,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8602629685334918055, guid: 14dce1ade2be39b4eaa49cd82854f618,
         type: 3}
@@ -1568,7 +1569,7 @@ PrefabInstance:
     - target: {fileID: 8602629685334918055, guid: 14dce1ade2be39b4eaa49cd82854f618,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.261
+      value: 3.54
       objectReference: {fileID: 0}
     - target: {fileID: 8602629685334918055, guid: 14dce1ade2be39b4eaa49cd82854f618,
         type: 3}
