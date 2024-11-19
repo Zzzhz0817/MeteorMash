@@ -6,7 +6,7 @@ public class P_FlyingState : P_State
 {
     public override void EnterState(P_StateManager player)
     {
-        //enable flying movement
+        player.rb.drag = player.drag;
     }
 
 
@@ -24,5 +24,58 @@ public class P_FlyingState : P_State
             player.SwitchState(player.grabbingState);
         }
        / */
+
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
+        float mouseX = Input.GetAxis("Mouse X");
+        float mouseY = Input.GetAxis("Mouse Y");
+        float rollInput = Input.GetKey(KeyCode.Q) ? -1f : Input.GetKey(KeyCode.E) ? 1f : 0f;
+        bool shiftHeld = Input.GetKey(KeyCode.LeftShift);
+        bool spaceHeld = Input.GetKey(KeyCode.Space);
+
+        // Rotation (pitch, yaw, roll)
+        float pitch = -mouseY * player.rotationSpeed * Time.deltaTime;
+        float yaw = mouseX * player.rotationSpeed * Time.deltaTime;
+        float roll = rollInput * player.rollSpeed * Time.deltaTime;
+        player.rb.transform.Rotate(pitch, yaw, roll, Space.Self);
+
+        // Movement
+        if (shiftHeld)
+        {
+            player.rb.AddRelativeForce(Vector3.forward * player.acceleration * Time.deltaTime, ForceMode.Acceleration);
+            // TO DO: oxygen consumption
+        }
+
+        if (spaceHeld)
+        {
+            player.rb.AddRelativeForce(-Vector3.forward * player.acceleration * Time.deltaTime, ForceMode.Acceleration);
+        }
+
+        Vector3 moveDirection = new Vector3(horizontalInput, verticalInput, 0f);
+        if (moveDirection != Vector3.zero)
+        {
+            player.rb.AddRelativeForce(moveDirection * player.acceleration * Time.deltaTime, ForceMode.Acceleration);
+        }
+        // Drag
+        ApplyDrag(player);
+
+        // State transition
+        if (Input.GetMouseButton(0))
+        {
+            player.SwitchState(player.grabbingState);
+        }
+    }
+
+    private void ApplyDrag(P_StateManager player)
+    {
+        Vector3 velocity = player.rb.velocity;
+        Vector3 deceleration = -velocity.normalized * player.drag * Time.deltaTime;
+
+        if (deceleration.magnitude > velocity.magnitude)
+        {
+            deceleration = -velocity;
+        }
+
+        player.rb.AddForce(deceleration, ForceMode.VelocityChange);
     }
 }

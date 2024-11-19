@@ -32,5 +32,40 @@ public class P_AimingState : P_State
 
         }
         */
+        float mouseX = Input.GetAxis("Mouse X");
+        float mouseY = Input.GetAxis("Mouse Y");
+        float pitch = -mouseY * player.rotationSpeed * Time.deltaTime;
+        float yaw = mouseX * player.rotationSpeed * Time.deltaTime;
+        player.transform.Rotate(pitch, yaw, 0f, Space.Self);
+
+        Vector3 toCenter = player.groundedObject.position - player.transform.position;
+        float angle = Vector3.Angle(player.transform.forward, toCenter);
+        if (angle < 90f)
+        {
+            player.SwitchState(player.groundedState);
+            return;
+        }
+        else if (angle > 210f)
+        {
+            // TODO: Limit rotation
+        }
+
+        // Draw the ray
+        Vector3 offset = player.transform.up * 0.01f + player.transform.right * 0.01f; 
+        Ray ray = new Ray(player.transform.position + offset, player.transform.forward);
+        Debug.DrawRay(ray.origin, ray.direction * 100f, Color.red);
+
+        if (!Input.GetMouseButton(0))
+        {
+            player.SwitchState(player.flyingState);
+            return;
+        }
+
+        if (Input.GetMouseButton(0) && Input.GetMouseButton(1))
+        {
+            player.SwitchState(player.pushingState);
+            return;
+        }
     }
+
 }

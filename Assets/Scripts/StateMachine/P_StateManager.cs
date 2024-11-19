@@ -15,9 +15,21 @@ public class P_StateManager : MonoBehaviour
     public P_DialogueState dialogueState = new P_DialogueState();
     public P_PausedState pausedState = new P_PausedState();
 
+    [HideInInspector]
+    public Rigidbody rb;
+    [HideInInspector]
+    public Transform groundedObject;
+
+    // Movement variables
+    public float moveSpeed = 10f;
+    public float rotationSpeed = 500f;
+    public float rollSpeed = 50f;
+    public float acceleration = 50f;
+    public float drag = 0.1f;
 
     private void Start()
     {
+        rb = GetComponent<Rigidbody>();
         currentState = flyingState;
 
         currentState.EnterState(this);
@@ -31,8 +43,14 @@ public class P_StateManager : MonoBehaviour
 
     public void SwitchState(P_State state)
     {
+        currentState.ExitState(this);
         previousState = currentState;
         currentState = state;
         state.EnterState(this);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        currentState.OnCollisionEnter(this, collision);
     }
 }

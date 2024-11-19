@@ -12,17 +12,25 @@ public class P_GrabbingState : P_State
 
     public override void UpdateState(P_StateManager player)
     {
-        /*TO DO: 
-        
-        if(PlayerControl.releases left mouse button)
+        // Aiming in half speed
+        float mouseX = Input.GetAxis("Mouse X") * 0.5f;
+        float mouseY = Input.GetAxis("Mouse Y") * 0.5f;
+        float pitch = -mouseY * player.rotationSpeed * Time.deltaTime;
+        float yaw = mouseX * player.rotationSpeed * Time.deltaTime;
+        player.rb.transform.Rotate(pitch, yaw, 0f, Space.Self);
+
+        if (!Input.GetMouseButton(0))
         {
             player.SwitchState(player.flyingState);
         }
-        if(PlayerControl.hits an object to attach to)
+    }
+
+    public override void OnCollisionEnter(P_StateManager player, Collision collision)
+    {
+        if (Input.GetMouseButton(0))
         {
+            player.groundedObject = collision.transform;
             player.SwitchState(player.groundedState);
         }
-        */
-
     }
 }

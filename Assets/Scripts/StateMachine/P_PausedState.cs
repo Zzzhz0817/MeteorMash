@@ -9,6 +9,7 @@ public class P_PausedState : P_State
         // disable all movement
         // disable all movement controls
         // save previous state
+        Time.timeScale = 0f;
     }
 
 
@@ -22,5 +23,17 @@ public class P_PausedState : P_State
             unpauses returns to previous state and switches that to currentstate
         }
         */
+    
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Time.timeScale = 1f;
+            player.SwitchState(player.previousState);
+        }
+        // TODO: Implement pause UI
+    }
+
+    public override void ExitState(P_StateManager player)
+    {
+        Time.timeScale = 1f;
     }
 }
