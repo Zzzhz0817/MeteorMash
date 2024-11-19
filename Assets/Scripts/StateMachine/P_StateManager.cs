@@ -49,6 +49,14 @@ public class P_StateManager : MonoBehaviour
         state.EnterState(this);
     }
 
+    public void SwitchToPreviousState()
+    {
+        if (previousState != null)
+        {
+            SwitchState(previousState);
+        }
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         currentState.OnCollisionEnter(this, collision);

@@ -21,5 +21,10 @@ public class P_DialogueState : P_State
             returns to previousState
         }
         */
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            // ialogue logic
+            player.SwitchState(player.previousState);
+        }
     }
 }
