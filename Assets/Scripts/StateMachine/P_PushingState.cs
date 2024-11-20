@@ -3,7 +3,7 @@ using UnityEngine;
 public class P_PushingState : P_State
 {
     private float power = 0f;
-    private float maxPower = 10f;
+    private float maxPower = 5f;
 
     public override void EnterState(P_StateManager player)
     {

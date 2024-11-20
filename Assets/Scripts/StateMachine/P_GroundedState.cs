@@ -8,6 +8,7 @@ public class P_GroundedState : P_State
     {
         //enable grounded movement
         //player.rb.isKinematic = true;
+        player.rb.velocity = new Vector3(0,0,0);
         player.transform.SetParent(player.groundedObject);
         AlignWithSurfaceNormal(player);
         player.anim.SetBool("Crawl-Idle", true);
