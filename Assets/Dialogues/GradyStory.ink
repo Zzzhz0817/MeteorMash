@@ -1,4 +1,6 @@
-// Grady Dialogue: Finding Grady’s Body  
+// Grady Dialogue: Finding Grady’s Body
+INCLUDE Globals.ink
+~ laser_acquired = true
 
 I drift toward the marker, the asteroid growing larger as the HUD guides me in. My thrusters fire one last burst, and I land softly, anchoring myself on the rough surface.
 

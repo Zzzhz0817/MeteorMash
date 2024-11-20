@@ -1,4 +1,7 @@
-// Singh Dialogue: Finding Singh’s Body  
+// Singh Dialogue: Finding Singh’s Body
+INCLUDE Globals.ink
+~ id_card_acquired = true
+
 The marker leads me to a large asteroid, its surface pockmarked and uneven. I land gently, scanning the area. Singh’s body lies not far away, half-buried in a shallow crater, her suit dark against the pale gray rock.
     * [Look for the captain's ID card.] -> get_id_card
     
