@@ -1,59 +1,34 @@
-using System;
-using System.Linq.Expressions;
 using UnityEngine;
 
 public class P_GroundedState : P_State
 {
     public override void EnterState(P_StateManager player)
     {
-        //enable grounded movement
-        //player.rb.isKinematic = true;
-        player.rb.velocity = new Vector3(0,0,0);
+        player.rb.velocity = Vector3.zero;
+        player.rb.isKinematic = true;
         player.transform.SetParent(player.groundedObject);
-        AlignWithSurfaceNormal(player);
         player.anim.SetBool("Crawl-Idle", true);
-
     }
 
     public override void UpdateState(P_StateManager player)
     {
-        /*TO DO: 
-        
-        if(PlayerControl.releases left mouse button)
-        {
-            player.SwitchState(player.flyingState);
-
-        }
-            if(PlayerControl.presses both mouse buttons)
-        {
-            player.SwitchState(player.pushingState);
-
-        }
-            if(PlayerControl.aim greater than 90 degrees away from center of object)
-        {
-            player.SwitchState(player.aimingState);
-
-        }
-        */
-
-        // Movement
+        // Movement input
         float horizontalInput = Input.GetAxis("Horizontal"); // A/D keys
         float verticalInput = Input.GetAxis("Vertical");     // W/S keys
 
-        // Check for movement input
         if (horizontalInput != 0f || verticalInput != 0f)
         {
-            MoveAlongSphere(player, horizontalInput, verticalInput);
+            MoveAlongSurface(player, horizontalInput, verticalInput);
         }
 
-        // Rotation
+        // Rotation (Mouse movement rotates the camera, not the player)
         float mouseX = Input.GetAxis("Mouse X");
         float mouseY = Input.GetAxis("Mouse Y");
         float pitch = -mouseY * player.rotationSpeed * Time.deltaTime;
         float yaw = mouseX * player.rotationSpeed * Time.deltaTime;
-        player.transform.Rotate(pitch, yaw, 0f, Space.Self);
+        player.mainCamera.Rotate(pitch, yaw, 0f, Space.Self);
 
-        // Rolling
+        // Rolling (Q and E keys rotate the player)
         float rollInput = Input.GetKey(KeyCode.Q) ? -1f : Input.GetKey(KeyCode.E) ? 1f : 0f;
         if (rollInput != 0f)
         {
@@ -62,9 +37,7 @@ public class P_GroundedState : P_State
 
         AnimTracker(player);
 
-        // Check for aiming
-        Vector3 toCenter = player.groundedObject.position - player.transform.position;
-        float angle = Vector3.Angle(player.transform.forward, toCenter);
+        float angle = Vector3.Angle(player.transform.forward, player.mainCamera.forward);
         if (angle > 90f)
         {
             player.SwitchState(player.aimingState);
@@ -84,14 +57,64 @@ public class P_GroundedState : P_State
         }
     }
 
+    private void MoveAlongSurface(P_StateManager player, float horizontalInput, float verticalInput)
+    {
+        // Get the input
+        Vector3 inputDirection = new Vector3(horizontalInput, verticalInput, 0f).normalized;
+
+        // Transform the input direction to world space
+        Vector3 worldInputDirection = player.transform.TransformDirection(inputDirection);
+
+        // Set the raycast origin to head's position
+        Vector3 raycastOrigin = player.transform.position + player.transform.up * 0.11f;
+        Vector3 raycastDirection = player.transform.forward;
+
+        // Cast a ray
+        RaycastHit hitInfo;
+        float raycastDistance = 1f; // Adjust based on meteor's distance
+
+        if (Physics.Raycast(raycastOrigin, raycastDirection, out hitInfo, raycastDistance))
+        {
+            Vector3 surfaceNormal = hitInfo.normal;
+
+            // Project the movement direction onto the surface tangent plane
+            Vector3 movementDirection = Vector3.ProjectOnPlane(worldInputDirection, surfaceNormal).normalized;
+
+            // Move the player
+            Vector3 movement = movementDirection * player.moveSpeed * Time.deltaTime;
+            player.transform.position += movement;
+
+            // Adjust the player's position to maintain distance to surface
+            float desiredDistance = 0.05f;
+            float currentDistance = hitInfo.distance;
+            float distanceDifference = desiredDistance - currentDistance;
+            player.transform.position += surfaceNormal * distanceDifference;
+
+            
+            // Calculate the projected forward vector
+            Vector3 projectedForward = Vector3.ProjectOnPlane(player.transform.forward, surfaceNormal).normalized;
+
+            // Compute the target rotation
+            Quaternion targetRotation = Quaternion.LookRotation(-surfaceNormal, player.transform.up);
+
+            // Smoothly rotate the player towards the target rotation
+            player.transform.rotation = Quaternion.Slerp(player.transform.rotation, targetRotation, 1f * Time.deltaTime);
+            
+        }
+        else
+        {
+            Debug.Log("No ground detected!");
+        }
+    }
+
     private void AnimTracker(P_StateManager player)
     {
-        int h = Input.GetKey(KeyCode.A) ? -1 : Input.GetKey (KeyCode.D) ? 1 : 0;
-        int v = Input.GetKey(KeyCode.S) ? -1 : Input.GetKey(KeyCode.W) ? 1 : 0; ;
+        int h = Input.GetKey(KeyCode.A) ? -1 : Input.GetKey(KeyCode.D) ? 1 : 0;
+        int v = Input.GetKey(KeyCode.S) ? -1 : Input.GetKey(KeyCode.W) ? 1 : 0;
         string horizontal = h.ToString();
         string vertical = v.ToString();
         string c = horizontal + " " + vertical;
-        Debug.Log(c);
+        //Debug.Log(c);
         switch (c)
         {
             case "-1 -1":
@@ -135,34 +158,19 @@ public class P_GroundedState : P_State
                 player.anim.SetBool("Crawl-Idle", true);
                 break;
         }
-        
-
-        
     }
+
     public override void ExitState(P_StateManager player)
     {
         player.transform.SetParent(null);
         player.rb.isKinematic = false;
         player.anim.SetBool("Crawl-Idle", false);
         ResetAnims(player);
+
+        // Reset relative rotation between player and camera
+        player.mainCamera.localRotation = Quaternion.identity;
     }
 
-    private void MoveAlongSphere(P_StateManager player, float horizontalInput, float verticalInput)
-    {
-        Vector3 normal = (player.transform.position - player.groundedObject.position).normalized;
-        float sphereRadius = Vector3.Distance(player.transform.position, player.groundedObject.position);
-
-        Vector3 tangentRight = Vector3.Cross(Vector3.up, normal).normalized;
-        Vector3 tangentUp = -Vector3.Cross(normal, tangentRight).normalized;
-
-        Vector3 movementDirection = (tangentRight * horizontalInput + tangentUp * verticalInput).normalized;
-        Vector3 rotationAxis = Vector3.Cross(movementDirection, normal);
-
-        float angle = (player.moveSpeed * Time.deltaTime / sphereRadius) * Mathf.Rad2Deg;
-        player.transform.RotateAround(player.groundedObject.position, rotationAxis, angle);
-
-        AlignWithSurfaceNormal(player);
-    }
     private void ResetAnims(P_StateManager player)
     {
         player.anim.SetBool("Move-Up", false);
@@ -174,14 +182,5 @@ public class P_GroundedState : P_State
         player.anim.SetBool("Move-Left", false);
         player.anim.SetBool("Move-Up-Left", false);
         player.anim.SetBool("Crawl-Idle", false);
-
     }
-    private void AlignWithSurfaceNormal(P_StateManager player)
-    {
-        Vector3 normal = (player.transform.position - player.groundedObject.position).normalized;
-
-        player.transform.forward = -normal;
-    }
-
-
 }

@@ -27,6 +27,7 @@ public class P_StateManager : MonoBehaviour
     public Transform groundedObject;
     [HideInInspector]
     public Animator anim;
+    public Transform mainCamera;
     #endregion
 
     #region Movement Variables
@@ -46,6 +47,7 @@ public class P_StateManager : MonoBehaviour
         currentState.EnterState(this);
         rb.constraints = RigidbodyConstraints.FreezeRotation;
 
+        mainCamera= transform.Find("Main Camera");
     }
 
     private void Update()
