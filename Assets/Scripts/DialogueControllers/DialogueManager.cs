@@ -143,4 +143,15 @@ public class DialogueManager : MonoBehaviour
         currentStory.ChooseChoiceIndex(choiceIndex);
         ContinueStory();
     }
+
+    public Ink.Runtime.Object GetVariable(string variableName)
+    {
+        Ink.Runtime.Object variableValue;
+        dialogueVariables.variables.TryGetValue(variableName, out variableValue);
+        if (variableValue == null)
+        {
+            Debug.LogError("Variable " + variableName + " not found!");
+        }
+        return variableValue;
+    }
 }

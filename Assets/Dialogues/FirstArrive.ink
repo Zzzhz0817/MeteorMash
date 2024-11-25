@@ -1,3 +1,4 @@
+INCLUDE Globals.ink
 // First Entry Dialogue: Reaching the Spaceship  
 
 I slam into the ship’s outer airlock, gripping the handle like a lifeline. The hatch cycles open, and I stumble inside. The pressure stabilizes, and I rip off my helmet, gasping for air. 
@@ -20,7 +21,7 @@ I slam my fist against the console, taking a moment to steady my breathing. The 
 
 === check_system ===
 The system diagnostics tell me what I need to know. To pilot the ship, I’ll need three things: a Hull laser to cut into the jammed control room door, a Sealant to patch it once it’s open, and the Captain’s ID card to start the system. Each item is logged to a different crew member.
-// show the tasks on the task column
+~task_received = true
 
 “Grady had the laser. Juno carried the sealant. Singh… she had the ID card. Their markers are… scattered. Damn it.”  
 
