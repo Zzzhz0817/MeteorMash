@@ -8,6 +8,8 @@ public class P_AimingState : P_State
     {
         //disable all movement
         //disable all movement controls
+        player.transform.rotation = player.groundedCameraRotation;
+        player.rb.isKinematic = true;
     }
 
 
@@ -38,9 +40,10 @@ public class P_AimingState : P_State
         float yaw = mouseX * player.rotationSpeed * Time.deltaTime;
         player.transform.Rotate(pitch, yaw, 0f, Space.Self);
 
-        Vector3 toCenter = player.groundedObject.position - player.transform.position;
-        float angle = Vector3.Angle(player.transform.forward, toCenter);
-        if (angle < 90f)
+
+        float angle = Quaternion.Angle(player.transform.rotation, player.groundedPlayerRotation);
+
+        if (angle < 80f)
         {
             player.SwitchState(player.groundedState);
             return;
@@ -66,6 +69,12 @@ public class P_AimingState : P_State
             player.SwitchState(player.pushingState);
             return;
         }
+    }
+
+    public override void ExitState(P_StateManager player) 
+    { 
+        player.rb.isKinematic = false;
+        player.groundedCameraRotation = player.transform.rotation;
     }
 
 }

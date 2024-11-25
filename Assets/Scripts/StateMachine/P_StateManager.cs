@@ -26,8 +26,13 @@ public class P_StateManager : MonoBehaviour
     [HideInInspector]
     public Transform groundedObject;
     [HideInInspector]
-    public Animator anim;
     public Transform mainCamera;
+    [HideInInspector]
+    public Quaternion groundedPlayerRotation;
+    [HideInInspector]
+    public Quaternion groundedCameraRotation;
+    [HideInInspector]
+    public Animator anim;
     #endregion
 
     #region Movement Variables

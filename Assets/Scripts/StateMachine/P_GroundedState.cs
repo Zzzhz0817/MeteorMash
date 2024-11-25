@@ -8,6 +8,12 @@ public class P_GroundedState : P_State
         player.rb.isKinematic = true;
         player.transform.SetParent(player.groundedObject);
         player.anim.SetBool("Crawl-Idle", true);
+
+        if(player.previousState is P_AimingState)
+        {
+            player.transform.rotation = player.groundedPlayerRotation;
+            player.mainCamera.rotation = Quaternion.Inverse(player.groundedPlayerRotation) * player.groundedCameraRotation;
+        }
     }
 
     public override void UpdateState(P_StateManager player)
@@ -66,7 +72,7 @@ public class P_GroundedState : P_State
         Vector3 worldInputDirection = player.transform.TransformDirection(inputDirection);
 
         // Set the raycast origin to head's position
-        Vector3 raycastOrigin = player.transform.position + player.transform.up * 0.11f;
+        Vector3 raycastOrigin = player.transform.position;
         Vector3 raycastDirection = player.transform.forward;
 
         // Cast a ray
@@ -85,10 +91,11 @@ public class P_GroundedState : P_State
             player.transform.position += movement;
 
             // Adjust the player's position to maintain distance to surface
-            float desiredDistance = 0.05f;
+            float desiredDistance = 0.07f;
             float currentDistance = hitInfo.distance;
             float distanceDifference = desiredDistance - currentDistance;
             player.transform.position += surfaceNormal * distanceDifference;
+
 
             
             // Calculate the projected forward vector
@@ -98,13 +105,26 @@ public class P_GroundedState : P_State
             Quaternion targetRotation = Quaternion.LookRotation(-surfaceNormal, player.transform.up);
 
             // Smoothly rotate the player towards the target rotation
-            player.transform.rotation = Quaternion.Slerp(player.transform.rotation, targetRotation, 1f * Time.deltaTime);
+            player.transform.rotation = Quaternion.Slerp(player.transform.rotation, targetRotation, 5f * Time.deltaTime);
             
         }
         else
         {
             Debug.Log("No ground detected!");
         }
+    }
+
+    public override void ExitState(P_StateManager player)
+    {
+        player.groundedPlayerRotation = player.transform.rotation;
+        player.groundedCameraRotation = player.mainCamera.rotation;
+        player.transform.SetParent(null);
+        player.rb.isKinematic = false;
+        player.anim.SetBool("Crawl-Idle", false);
+        ResetAnims(player);
+
+        // Reset relative rotation between player and camera
+        player.mainCamera.localRotation = Quaternion.identity;
     }
 
     private void AnimTracker(P_StateManager player)
@@ -158,17 +178,6 @@ public class P_GroundedState : P_State
                 player.anim.SetBool("Crawl-Idle", true);
                 break;
         }
-    }
-
-    public override void ExitState(P_StateManager player)
-    {
-        player.transform.SetParent(null);
-        player.rb.isKinematic = false;
-        player.anim.SetBool("Crawl-Idle", false);
-        ResetAnims(player);
-
-        // Reset relative rotation between player and camera
-        player.mainCamera.localRotation = Quaternion.identity;
     }
 
     private void ResetAnims(P_StateManager player)

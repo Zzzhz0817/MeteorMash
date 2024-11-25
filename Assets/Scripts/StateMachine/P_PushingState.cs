@@ -30,6 +30,7 @@ public class P_PushingState : P_State
         }
         */
          // Power bar logic
+        Debug.Log(power);
 
         float powerSpeed = 3f;
         if (power < maxPower)
