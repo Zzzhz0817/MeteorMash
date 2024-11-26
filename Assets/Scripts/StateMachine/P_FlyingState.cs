@@ -24,7 +24,7 @@ public class P_FlyingState : P_State
         {
             player.SwitchState(player.grabbingState);
         }
-       / */
+       / */ 
 
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
@@ -34,11 +34,42 @@ public class P_FlyingState : P_State
         bool shiftHeld = Input.GetKey(KeyCode.LeftShift);
         bool spaceHeld = Input.GetKey(KeyCode.Space);
 
+        // Consume air
+        if (player.oxygen > 0f)
+        {
+            if (horizontalInput != 0f)
+            {
+                player.oxygen -= player.oxygenConsumptionRate * Time.deltaTime;
+            }
+            if (verticalInput != 0f)
+            {
+                player.oxygen -= player.oxygenConsumptionRate * Time.deltaTime;
+            }
+            if (shiftHeld)
+            {
+                player.oxygen -= player.oxygenConsumptionRate * Time.deltaTime;
+            }
+            if (spaceHeld)
+            {
+                player.oxygen -= player.oxygenConsumptionRate * Time.deltaTime;
+            }
+
+            
+            player.oxygen = Mathf.Clamp(player.oxygen, 0f, 100f);      // Ensure oxygen stays in bounds
+            player.UpdateOxygenUI();
+        }
+        else
+        {
+            Debug.LogError("Oxygen depleted!");
+        }
+
+
         // Rotation (pitch, yaw, roll)
         float pitch = -mouseY * player.rotationSpeed * Time.deltaTime;
         float yaw = mouseX * player.rotationSpeed * Time.deltaTime;
         float roll = rollInput * player.rollSpeed * Time.deltaTime;
         player.rb.transform.Rotate(pitch, yaw, roll, Space.Self);
+        
 
         // Movement
         if (shiftHeld)

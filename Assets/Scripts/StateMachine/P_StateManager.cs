@@ -1,10 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class P_StateManager : MonoBehaviour
 {
-
     #region States
     public P_State currentState;
     public P_State previousState;
@@ -16,23 +14,15 @@ public class P_StateManager : MonoBehaviour
     public P_PushingState pushingState = new P_PushingState();
     public P_DialogueState dialogueState = new P_DialogueState();
     public P_PausedState pausedState = new P_PausedState();
-
     #endregion
 
-
-    #region
-    [HideInInspector]
-    public Rigidbody rb;
-    [HideInInspector]
-    public Transform groundedObject;
-    [HideInInspector]
-    public Transform mainCamera;
-    [HideInInspector]
-    public Quaternion groundedPlayerRotation;
-    [HideInInspector]
-    public Quaternion groundedCameraRotation;
-    [HideInInspector]
-    public Animator anim;
+    #region Components
+    [HideInInspector] public Rigidbody rb;
+    [HideInInspector] public Transform groundedObject;
+    [HideInInspector] public Transform mainCamera;
+    [HideInInspector] public Quaternion groundedPlayerRotation;
+    [HideInInspector] public Quaternion groundedCameraRotation;
+    [HideInInspector] public Animator anim;
     #endregion
 
     #region Movement Variables
@@ -41,6 +31,18 @@ public class P_StateManager : MonoBehaviour
     public float rollSpeed = 50f;
     public float acceleration = 50f;
     public float drag = 0.1f;
+    #endregion
+
+    #region Resource Variables
+    public float oxygen = 100f;
+    public float power = 0f;
+    public float oxygenConsumptionRate = 1f; // Amount of oxygen to consume per second
+    private Coroutine oxygenConsumptionCoroutine;
+    #endregion
+
+    #region UI Elements
+    [SerializeField] private OxygenSlideBar oxygenSlideBar;
+    [SerializeField] private PowerSlideBar powerSlideBar;
     #endregion
 
     private void Start()
@@ -52,12 +54,28 @@ public class P_StateManager : MonoBehaviour
         currentState.EnterState(this);
         rb.constraints = RigidbodyConstraints.FreezeRotation;
 
-        mainCamera= transform.Find("Main Camera");
+        mainCamera = transform.Find("Main Camera");
+
+        // Initialize UI
+        UpdateOxygenUI();
+        UpdatePowerUI();
     }
 
     private void Update()
     {
         currentState.UpdateState(this);
+
+
+        if (oxygen > 0f)
+        {
+            oxygen -= oxygenConsumptionRate * Time.deltaTime; // Consume oxygen at a rate
+            oxygen = Mathf.Clamp(oxygen, 0f, 100f);      // Ensure oxygen stays in bounds
+            UpdateOxygenUI();
+        }
+        else
+        {
+            Debug.LogError("Oxygen depleted!");
+        }
     }
 
     public void SwitchState(P_State state)
@@ -79,5 +97,56 @@ public class P_StateManager : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         currentState.OnCollisionEnter(this, collision);
+    }
+
+    /// <summary>
+    /// Public method to set power.
+    /// </summary>
+    /// <param name="amount">New power value.</param>
+    public void SetPower(float amount)
+    {
+        power = Mathf.Clamp(amount, 0f, 100f); // Ensure power stays within 0-100
+        UpdatePowerUI();
+    }
+
+    /// <summary>
+    /// Public method to add oxygen.
+    /// </summary>
+    /// <param name="amount">Amount of oxygen to add (can be negative).</param>
+    public void AddOxygen(float amount)
+    {
+        oxygen += amount;
+        oxygen = Mathf.Clamp(oxygen, 0f, 100f); // Ensure oxygen stays within 0-100
+        UpdateOxygenUI();
+    }
+
+    /// <summary>
+    /// Updates the oxygen bar in the UI.
+    /// </summary>
+    public void UpdateOxygenUI()
+    {
+        if (oxygenSlideBar != null)
+        {
+            oxygenSlideBar.SetOxygen(oxygen);
+        }
+        else
+        {
+            Debug.LogWarning("OxygenSlideBar not assigned in the Inspector.");
+        }
+    }
+
+    /// <summary>
+    /// Updates the power bar in the UI.
+    /// </summary>
+    public void UpdatePowerUI()
+    {
+        if (powerSlideBar != null)
+        {
+            powerSlideBar.SetPower(power);
+        }
+        else
+        {
+            Debug.LogWarning("PowerSlideBar not assigned in the Inspector.");
+        }
     }
 }
