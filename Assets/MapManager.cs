@@ -78,10 +78,12 @@ public class MapManager : MonoBehaviour
     private void MakeLine()
     {
         var points = new Vector3[2];
-        lineRenderer.startWidth = .01f;
-        lineRenderer.endWidth = .01f;
+        lineRenderer.startWidth = .03f;
+        lineRenderer.endWidth = .03f;
         points[0] = playerTracker.transform.position;
         points[1] = trackerAnchor.transform.position;
         lineRenderer.SetPositions(points);
+        lineRenderer.SetColors(Color.white, Color.white);
+
     }
 }
