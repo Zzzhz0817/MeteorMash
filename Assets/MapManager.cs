@@ -63,9 +63,9 @@ public class MapManager : MonoBehaviour
             posHeight = true;
         }
         if (posHeight == true)
-            transform.rotation = Quaternion.RotateTowards(this.transform.rotation, to.rotation, Time.deltaTime * 30f);
+            transform.rotation = Quaternion.Lerp(this.transform.rotation, to.rotation, Time.deltaTime * 5f);
         else if (posHeight == false)
-            transform.rotation = Quaternion.RotateTowards(this.transform.rotation, from.rotation, Time.deltaTime * 30f);
+            transform.rotation = Quaternion.Lerp(this.transform.rotation, from.rotation, Time.deltaTime * 5f);
     }
 
     private void TrackerUpdate()
