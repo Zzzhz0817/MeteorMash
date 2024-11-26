@@ -84,6 +84,5 @@ public class MapManager : MonoBehaviour
         points[1] = trackerAnchor.transform.position;
         lineRenderer.SetPositions(points);
         lineRenderer.SetColors(Color.white, Color.white);
-
     }
 }
