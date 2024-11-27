@@ -14,8 +14,8 @@ public class OxygenSlideBar : MonoBehaviour
         }
 
         // Set the slider's range (62 to 88)
-        oxygenSlider.minValue = 62f;
-        oxygenSlider.maxValue = 88f;
+        oxygenSlider.minValue = 78.12f;
+        oxygenSlider.maxValue = 84.88f;
     }
 
     /// <summary>

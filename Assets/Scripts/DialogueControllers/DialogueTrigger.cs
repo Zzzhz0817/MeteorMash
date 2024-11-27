@@ -25,15 +25,16 @@ public class DialogueTrigger : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collider)
+    private void OnTriggerEnter(Collider collider)
     {
-        if (collider.gameObject.tag == "Player")
+        if (collider.CompareTag("Player"))
         {
             playerInRange = true;
+            Debug.Log("Player entered the trigger zone.");
         }
     }
 
-    private void OnCollisionExit(Collision collider)
+    private void OnTriggerExit(Collision collider)
     {
         if (collider.gameObject.tag == "Player")
         {
