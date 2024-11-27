@@ -52,6 +52,12 @@ public class P_GroundedState : P_State
 
         if (!Input.GetMouseButton(0))
         {
+            // Add boost in the opposite direction of player's pacing
+            Vector3 oppositeDirection = -player.transform.forward;
+            float boostForce = 0.2f; // Adjust for speed
+            player.rb.isKinematic = false;
+            player.rb.AddForce(oppositeDirection * boostForce, ForceMode.VelocityChange);
+
             player.SwitchState(player.flyingState);
             return;
         }

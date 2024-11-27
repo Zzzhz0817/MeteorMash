@@ -45,6 +45,8 @@ public class P_StateManager : MonoBehaviour
     [SerializeField] private PowerSlideBar powerSlideBar;
     #endregion
 
+    private Transform mainCameraTransform;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -59,12 +61,27 @@ public class P_StateManager : MonoBehaviour
         // Initialize UI
         UpdateOxygenUI();
         UpdatePowerUI();
+
+        mainCameraTransform = transform.Find("Main Camera");
+        if (mainCameraTransform == null)
+        {
+            Debug.LogError("Main Camera not found as a child of the player!");
+            return;
+        }
     }
 
     private void Update()
     {
         currentState.UpdateState(this);
 
+        if (mainCameraTransform != null)
+        {
+            // Get the current local rotation
+            Quaternion currentRotation = mainCameraTransform.localRotation;
+
+            // Lock the Z-axis rotation to 0
+            mainCameraTransform.localRotation = Quaternion.Euler(currentRotation.eulerAngles.x, currentRotation.eulerAngles.y, 0f);
+        }
 
         if (oxygen > 0f)
         {
