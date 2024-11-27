@@ -21,7 +21,6 @@ public class MapManager : MonoBehaviour
     #endregion
 
     #region line values
-    [SerializeField] private Color c1 = Color.yellow;
     [SerializeField] private LineRenderer lineRenderer;
     #endregion
 
@@ -43,8 +42,8 @@ public class MapManager : MonoBehaviour
 
     void Start()
     {
-        lineRenderer.startColor = Color.white;
-        lineRenderer.startWidth = .01f;
+        lineRenderer.startColor = Color.green;
+        lineRenderer.startWidth = .02f;
         var points = new Vector3[2];
         points[0] = playerTracker.transform.position;
         points[1] = trackerAnchor.transform.position;
@@ -119,9 +118,10 @@ public class MapManager : MonoBehaviour
         var points = new Vector3[2];
         lineRenderer.startWidth = .03f;
         lineRenderer.endWidth = .03f;
+        lineRenderer.startColor = Color.green;
+        lineRenderer.endColor = Color.green;
         points[0] = playerTracker.transform.position;
         points[1] = trackerAnchor.transform.position;
         lineRenderer.SetPositions(points);
-        lineRenderer.SetColors(Color.green, Color.green);
     }
 }
