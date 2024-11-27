@@ -25,6 +25,7 @@ public class MapManager : MonoBehaviour
     #endregion
 
     #region tracking objects
+    [SerializeField] private float sizer = 0.015f;
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject playerTracker;
     [SerializeField] private GameObject trackerAnchor;
@@ -42,15 +43,11 @@ public class MapManager : MonoBehaviour
 
     void Start()
     {
-        lineRenderer.startColor = Color.green;
-        lineRenderer.startWidth = .02f;
-        var points = new Vector3[2];
-        points[0] = playerTracker.transform.position;
-        points[1] = trackerAnchor.transform.position;
-        lineRenderer.SetPositions(points);
+        LineSetup();
         posHeight = true;
         BuildMap();
     }
+
 
     // Update is called once per frame
     void Update()
@@ -69,24 +66,21 @@ public class MapManager : MonoBehaviour
             Vector3 waypoint = new Vector3(0, 0, 0);
             GameObject obj = Instantiate(prefabAsset, waypoint, transform.rotation) as GameObject;
             obj.transform.SetParent(parentLadder.transform);
-            Debug.Log("I've made a Meteor");
-            obj.transform.localPosition = new Vector3(objects.transform.position.x * 0.02f, objects.transform.position.y * 0.02f, objects.transform.position.z * 0.02f);
+            obj.transform.localPosition = new Vector3(objects.transform.position.x * sizer, objects.transform.position.y * sizer, objects.transform.position.z * sizer);
         }
         foreach (GameObject poi in missions)
         {
             Vector3 waypoint = new Vector3(0, 0, 0);
             GameObject mission = Instantiate(missionAsset, waypoint, transform.rotation) as GameObject;
             mission.transform.SetParent(parentLadder.transform);
-            Debug.Log("I've made a POI");
-            mission.transform.localPosition = new Vector3(poi.transform.position.x * 0.02f, poi.transform.position.y * 0.02f, poi.transform.position.z * 0.02f);
+            mission.transform.localPosition = new Vector3(poi.transform.position.x * sizer, poi.transform.position.y * sizer, poi.transform.position.z * sizer);
         }
         foreach (GameObject ship in ship)
         {
             Vector3 waypoint = new Vector3(0, 0, 0);
             GameObject goal = Instantiate(shipAsset, waypoint, transform.rotation) as GameObject;
             goal.transform.SetParent(parentLadder.transform);
-            Debug.Log("I've made the ship");
-            goal.transform.localPosition = new Vector3(ship.transform.position.x * 0.02f, ship.transform.position.y * 0.02f, ship.transform.position.z * 0.02f);
+            goal.transform.localPosition = new Vector3(ship.transform.position.x * sizer, ship.transform.position.y * sizer, ship.transform.position.z * sizer);
         }
     }
 
@@ -109,10 +103,19 @@ public class MapManager : MonoBehaviour
     private void TrackerUpdate()
     {
         playerTracker.transform.rotation = player.transform.rotation;
-        playerTracker.transform.localPosition = new Vector3(player.transform.position.x * 0.02f, player.transform.position.y * 0.02f, player.transform.position.z * 0.02f);
-        trackerAnchor.transform.localPosition = new Vector3(player.transform.position.x * 0.02f, 0, player.transform.position.z * 0.02f);
+        playerTracker.transform.localPosition = new Vector3(player.transform.position.x * sizer, player.transform.position.y * sizer, player.transform.position.z * sizer);
+        trackerAnchor.transform.localPosition = new Vector3(player.transform.position.x * sizer, 0, player.transform.position.z * sizer);
     }
 
+    private void LineSetup()
+    {
+        lineRenderer.startColor = Color.green;
+        lineRenderer.startWidth = .02f;
+        var points = new Vector3[2];
+        points[0] = playerTracker.transform.position;
+        points[1] = trackerAnchor.transform.position;
+        lineRenderer.SetPositions(points);
+    }
     private void MakeLine()
     {
         var points = new Vector3[2];
