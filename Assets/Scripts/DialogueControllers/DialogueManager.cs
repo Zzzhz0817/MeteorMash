@@ -60,7 +60,7 @@ public class DialogueManager : MonoBehaviour
 
     private void Update()
     {
-        if (dialogueIsPlaying && Input.GetMouseButtonDown(0))
+        if (dialogueIsPlaying && Input.GetKeyDown(KeyCode.F))
         {
             ContinueStory();
         }
