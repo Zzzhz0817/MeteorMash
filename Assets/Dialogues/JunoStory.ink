@@ -2,8 +2,10 @@
 INCLUDE Globals.ink
 ~ sealant_acquired = true
 
-The HUD guides me to the marker, an asteroid spinning slowly against the endless void. Juno’s suit is easy to spot—a splash of bright color amid the gray rock. I land nearby, my boots kicking up a small puff of dust as I approach. Her tool belt still strapped on. 
-    * [Look for the Sealant in her tool belt.] -> get_sealant
+The HUD guides me to the marker, an asteroid spinning slowly against the endless void. 
+
+Juno’s suit is easy to spot—a splash of bright color amid the gray rock. I land nearby, my boots kicking up a small puff of dust as I approach. Her tool belt still strapped on. 
+    * [Look for the Sealant.] -> get_sealant
     
     
 === get_sealant ===
