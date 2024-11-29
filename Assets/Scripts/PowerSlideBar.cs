@@ -32,7 +32,7 @@ public class PowerSlideBar : MonoBehaviour
         }
 
         // Map 0-100 to 36-64 linearly
-        float mappedValue = Mathf.Lerp(36f, 64f, power / 100f);
+        float mappedValue = Mathf.Lerp(46.2f, 53.8f, power / 100f);
         powerSlider.value = mappedValue;
     }
 }

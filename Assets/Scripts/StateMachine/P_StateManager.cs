@@ -41,8 +41,8 @@ public class P_StateManager : MonoBehaviour
     #endregion
 
     #region UI Elements
-    [SerializeField] private OxygenSlideBar oxygenSlideBar;
-    [SerializeField] private PowerSlideBar powerSlideBar;
+    public OxygenSlideBar oxygenSlideBar;
+    public PowerSlideBar powerSlideBar;
     #endregion
 
     private Transform mainCameraTransform;
