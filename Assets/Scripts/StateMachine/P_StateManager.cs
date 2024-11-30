@@ -97,6 +97,7 @@ public class P_StateManager : MonoBehaviour
 
     public void SwitchState(P_State state)
     {
+        Debug.Log($"Switching to {state.GetType().Name}");
         currentState.ExitState(this);
         previousState = currentState;
         currentState = state;

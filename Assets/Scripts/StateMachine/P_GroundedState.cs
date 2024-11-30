@@ -86,31 +86,34 @@ public class P_GroundedState : P_State
 
         if (Physics.Raycast(raycastOrigin, raycastDirection, out hitInfo, raycastDistance))
         {
-            Vector3 surfaceNormal = hitInfo.normal;
+            if (hitInfo.collider.CompareTag("Meteor"))
+            {
+                Vector3 surfaceNormal = hitInfo.normal;
 
-            // Project the movement direction onto the surface tangent plane
-            Vector3 movementDirection = Vector3.ProjectOnPlane(worldInputDirection, surfaceNormal).normalized;
+                // Project the movement direction onto the surface tangent plane
+                Vector3 movementDirection = Vector3.ProjectOnPlane(worldInputDirection, surfaceNormal).normalized;
 
-            // Move the player
-            Vector3 movement = movementDirection * player.moveSpeed * Time.deltaTime;
-            player.transform.position += movement;
+                // Move the player
+                Vector3 movement = movementDirection * player.moveSpeed * Time.deltaTime;
+                player.transform.position += movement;
 
-            // Adjust the player's position to maintain distance to surface
-            float desiredDistance = 0.07f;
-            float currentDistance = hitInfo.distance;
-            float distanceDifference = desiredDistance - currentDistance;
-            player.transform.position += surfaceNormal * distanceDifference;
+                // Adjust the player's position to maintain distance to surface
+                float desiredDistance = 0.07f;
+                float currentDistance = hitInfo.distance;
+                float distanceDifference = desiredDistance - currentDistance;
+                player.transform.position += surfaceNormal * distanceDifference;
 
 
-            
-            // Calculate the projected forward vector
-            Vector3 projectedForward = Vector3.ProjectOnPlane(player.transform.forward, surfaceNormal).normalized;
+                
+                // Calculate the projected forward vector
+                Vector3 projectedForward = Vector3.ProjectOnPlane(player.transform.forward, surfaceNormal).normalized;
 
-            // Compute the target rotation
-            Quaternion targetRotation = Quaternion.LookRotation(-surfaceNormal, player.transform.up);
+                // Compute the target rotation
+                Quaternion targetRotation = Quaternion.LookRotation(-surfaceNormal, player.transform.up);
 
-            // Smoothly rotate the player towards the target rotation
-            player.transform.rotation = Quaternion.Slerp(player.transform.rotation, targetRotation, 5f * Time.deltaTime);
+                // Smoothly rotate the player towards the target rotation
+                player.transform.rotation = Quaternion.Slerp(player.transform.rotation, targetRotation, 5f * Time.deltaTime);
+            }
             
         }
         else

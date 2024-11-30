@@ -7,24 +7,25 @@ public class P_DialogueState : P_State
 {
     public override void EnterState(P_StateManager player)
     {
-        // disable all movement
-        // disable all movement controls
+        // Pause the game
+        Time.timeScale = 0f;
+
+        // Disable all movement
+        player.rb.velocity = Vector3.zero;
     }
 
     public override void UpdateState(P_StateManager player)
     {
-        /*TO DO: 
-        
-        if(PlayerControl.presses f == true || mouse clicks)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            progresses dialogue or chooses dialogue option
-            returns to previousState
-        }
-        */
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            // ialogue logic
+
             player.SwitchState(player.previousState);
         }
+    }
+
+    public override void ExitState(P_StateManager player)
+    {
+        // Resume the game
+        Time.timeScale = 1f;
     }
 }
