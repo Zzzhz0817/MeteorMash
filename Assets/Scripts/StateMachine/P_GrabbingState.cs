@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class P_GrabbingState : P_State
 {
-    public float rayLength = 0.3f; // Adjust the length of ray casted
+    public float rayLength = 0.13f; // Adjust the length of ray casted
     public float minSpeedThreshold = 1f; // Speed threshold for force adjustment
     public float minForce = 0.2f; // Minimum force applied
     public float maxForce = 10f; // Maximum force applied
@@ -40,6 +40,20 @@ public class P_GrabbingState : P_State
 
                 // Apply force to the player in the direction they are facing
                 player.rb.AddForce(forward * forceMagnitude * Time.deltaTime, ForceMode.Impulse);
+
+                // Gradually rotate the player to face the opposite direction of the normal
+                Vector3 targetDirection = -hit.normal;
+                Quaternion targetRotation = Quaternion.LookRotation(targetDirection, Vector3.up); // Calculate target rotation
+
+                // Extract the current and target Euler angles
+                Vector3 currentEuler = player.transform.rotation.eulerAngles;
+                Vector3 targetEuler = targetRotation.eulerAngles;
+
+                // Lock the z-axis rotation (prevent rotation around z-axis)
+                targetEuler.z = currentEuler.z;
+
+                targetRotation = Quaternion.Euler(targetEuler);
+                player.transform.rotation = Quaternion.Slerp(player.transform.rotation, targetRotation, Time.deltaTime * 2f);
 
                 if (hit.distance < 0.1f)
                 {

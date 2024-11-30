@@ -4,16 +4,16 @@ public class P_GroundedState : P_State
 {
     public override void EnterState(P_StateManager player)
     {
-        player.rb.velocity = Vector3.zero;
-        player.rb.isKinematic = true;
-        player.transform.SetParent(player.groundedObject);
-        player.anim.SetBool("Crawl-Idle", true);
-
         if(player.previousState is P_AimingState)
         {
             player.transform.rotation = player.groundedPlayerRotation;
             player.mainCamera.rotation = Quaternion.Inverse(player.groundedPlayerRotation) * player.groundedCameraRotation;
+            Debug.Log(("Enter", player.transform.rotation, player.mainCamera.rotation));
         }
+        player.rb.velocity = Vector3.zero;
+        player.rb.isKinematic = true;
+        player.transform.SetParent(player.groundedObject);
+        player.anim.SetBool("Crawl-Idle", true);
     }
 
     public override void UpdateState(P_StateManager player)
@@ -22,10 +22,9 @@ public class P_GroundedState : P_State
         float horizontalInput = Input.GetAxis("Horizontal"); // A/D keys
         float verticalInput = Input.GetAxis("Vertical");     // W/S keys
 
-        if (horizontalInput != 0f || verticalInput != 0f)
-        {
-            MoveAlongSurface(player, horizontalInput, verticalInput);
-        }
+
+        MoveAlongSurface(player, horizontalInput, verticalInput);
+
 
         // Rotation (Mouse movement rotates the camera, not the player)
         float mouseX = Input.GetAxis("Mouse X");
@@ -122,15 +121,17 @@ public class P_GroundedState : P_State
 
     public override void ExitState(P_StateManager player)
     {
+        player.transform.SetParent(null);
         player.groundedPlayerRotation = player.transform.rotation;
         player.groundedCameraRotation = player.mainCamera.rotation;
-        player.transform.SetParent(null);
         player.rb.isKinematic = false;
         player.anim.SetBool("Crawl-Idle", false);
         ResetAnims(player);
 
         // Reset relative rotation between player and camera
         player.mainCamera.localRotation = Quaternion.identity;
+
+        Debug.Log(("Exit", player.transform.rotation, player.mainCamera.rotation));
     }
 
     private void AnimTracker(P_StateManager player)
