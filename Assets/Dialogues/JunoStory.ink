@@ -2,7 +2,7 @@
 INCLUDE Globals.ink
 ~ sealant_acquired = true
 
-The HUD guides me to the marker, an asteroid spinning slowly against the endless void. Juno’s suit is easy to spot—a splash of bright color amid the gray rock. 
+The HUD guides me to the marker, an asteroid spinning slowly against the endless void. It is not so easy to spother since half of her body is buried in rock.
 
 I crawl nearby, my boots kicking up a small puff of dust as I approach. Her tool belt still strapped on. 
     * [Look for the Sealant.] -> get_sealant

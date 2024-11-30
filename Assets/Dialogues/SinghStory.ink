@@ -2,11 +2,13 @@
 INCLUDE Globals.ink
 ~ id_card_acquired = true
 
-The marker leads me to a large asteroid, its surface pockmarked and uneven. I land gently, scanning the area. Singh’s body lies not far away, half-buried in a shallow crater, her suit dark against the pale gray rock.
+The marker leads me to a large asteroid, its surface pockmarked and uneven. I land gently, scanning the area. Singh’s body lies not far away, half-buried in a crater, her suit dark against the pale gray rock.
     * [Look for the captain's ID card.] -> get_id_card
     
 === get_id_card ===
-I kneel beside her, brushing away the loose dust from her belt. The captain’s ID card is still clipped securely, a small, unassuming piece of plastic that now feels like the heaviest thing in the galaxy. I pause, gripping it tightly, memories surfacing unbidden.
+I kneel beside her. The captain’s ID card is floating, probably held tight by her before she went unconscious.
+
+That small, unassuming piece of plastic now feels like the heaviest thing in the galaxy. I pause, gripping it tightly, memories surfacing unbidden.
 
 She was always the steady one, the leader, even when it was just the two of us. Back then, we had nothing — barely enough to keep a ship running, scraping by on tiny hauls that hardly covered fuel. But she never wavered. Never stopped believing we could do more. 
 

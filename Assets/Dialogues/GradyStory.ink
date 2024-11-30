@@ -4,7 +4,7 @@ INCLUDE Globals.ink
 
 I drift toward the marker, the asteroid growing larger as the HUD guides me in. My thrusters fire one last burst, and I land softly, anchoring myself on the rough surface.
 
-Grady’s body lies just ahead, sprawled across a jagged rock. His suit is scorched, the visor cracked, but his tool belt is intact. The Hull laser is clipped there, still pristine.
+Grady’s body is just ahead, sprawled across a jagged rock. His suit is scorched, the visor cracked, but his tool belt is intact. The Hull laser is clipped there, still pristine.
     * [Get the Hull laser.] -> get_laser
 
 === get_laser ===
