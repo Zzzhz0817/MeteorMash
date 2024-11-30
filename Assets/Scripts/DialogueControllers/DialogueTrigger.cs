@@ -5,36 +5,44 @@ using UnityEngine;
 public class DialogueTrigger : MonoBehaviour
 {
     [Header("Ink JSON")]
-    [SerializeField] private TextAsset inkJSON;
-    private bool playerInRange;
-    private bool triggered;
+    [SerializeField] protected TextAsset inkJSON;
+    protected bool playerInRange = false;
+    protected bool triggered = false;
+    protected bool guiding = false;
 
 
-    private void Awake()
+    protected virtual void Update()
     {
-        playerInRange = false;
-        triggered = false;
-    }
-
-    private void Update()
-    {
-        if (playerInRange && !DialogueManager.GetInstance().dialogueIsPlaying && !triggered)
+        if (!triggered && playerInRange)
         {
+            if (!DialogueManager.GetInstance().guidanceIsPlaying && !DialogueManager.GetInstance().dialogueIsPlaying){
+                DialogueManager.GetInstance().EnterGuidanceMode("Press F to interact");
+                guiding = true;
+            }
+        }
+        else if (guiding && DialogueManager.GetInstance().guidanceIsPlaying){
+            DialogueManager.GetInstance().ExitGuidanceMode();
+            guiding = false;
+        }
+
+        if (guiding && DialogueManager.GetInstance().guidanceIsPlaying && !DialogueManager.GetInstance().dialogueIsPlaying && Input.GetKeyDown(KeyCode.F))
+        {
+            DialogueManager.GetInstance().ExitGuidanceMode();
+            guiding = false;
             DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
             triggered = true;
         }
     }
 
-    private void OnTriggerEnter(Collider collider)
+    protected virtual void OnTriggerEnter(Collider collider)
     {
-        if (collider.CompareTag("Player"))
+        if (collider.gameObject.tag == "Player")
         {
             playerInRange = true;
-            Debug.Log("Player entered the trigger zone.");
         }
     }
 
-    private void OnTriggerExit(Collider collider)
+    protected virtual void OnTriggerExit(Collider collider)
     {
         if (collider.gameObject.tag == "Player")
         {

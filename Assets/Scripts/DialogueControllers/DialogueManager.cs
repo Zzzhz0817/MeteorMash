@@ -14,6 +14,8 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private InkFile globalsInkFile;
     [SerializeField] private GameObject dialoguePanel;
     [SerializeField] private TextMeshProUGUI dialogueText;
+    [SerializeField] private GameObject guidancePanel;
+    [SerializeField] private TextMeshProUGUI guidanceText;
     [SerializeField] private P_StateManager player;
 
     [Header("Choices UI")]
@@ -22,6 +24,7 @@ public class DialogueManager : MonoBehaviour
 
     private Story currentStory;
     public bool dialogueIsPlaying { get; private set; }
+    public bool guidanceIsPlaying { get; private set; }
 
     private static DialogueManager instance;
 
@@ -46,7 +49,9 @@ public class DialogueManager : MonoBehaviour
     private void Start()
     {
         dialogueIsPlaying = false;
+        guidanceIsPlaying = false;
         dialoguePanel.SetActive(false);
+        guidancePanel.SetActive(false);
 
         // get all choices text
         choicesText = new TextMeshProUGUI[choices.Length];
@@ -66,6 +71,14 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    public void EnterGuidanceMode(string guidance)
+    {
+        Debug.Log(guidancePanel);
+        guidancePanel.SetActive(true);
+        guidanceIsPlaying = true;
+        guidanceText.text = guidance;
+    }
+
     public void EnterDialogueMode(TextAsset inkJSON)
     {
         currentStory = new Story(inkJSON.text);
@@ -75,7 +88,7 @@ public class DialogueManager : MonoBehaviour
 
         dialogueVariables.StartListening(currentStory);
 
-        ContinueStory();
+        // ContinueStory();
     }
 
     private void ExitDialogueMode()
@@ -86,6 +99,14 @@ public class DialogueManager : MonoBehaviour
         dialogueIsPlaying = false;
         dialogueText.text = "";
         player.SwitchToPreviousState();
+    }
+
+    public void ExitGuidanceMode()
+    {
+        Debug.Log("Exiting guidance mode");
+        guidancePanel.SetActive(false);
+        guidanceIsPlaying = false;
+        guidanceText.text = "";
     }
 
     private void ContinueStory()

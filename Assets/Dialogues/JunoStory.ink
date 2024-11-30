@@ -2,18 +2,20 @@
 INCLUDE Globals.ink
 ~ sealant_acquired = true
 
-The HUD guides me to the marker, an asteroid spinning slowly against the endless void. 
+The HUD guides me to the marker, an asteroid spinning slowly against the endless void. Juno’s suit is easy to spot—a splash of bright color amid the gray rock. 
 
-Juno’s suit is easy to spot—a splash of bright color amid the gray rock. I land nearby, my boots kicking up a small puff of dust as I approach. Her tool belt still strapped on. 
+I crawl nearby, my boots kicking up a small puff of dust as I approach. Her tool belt still strapped on. 
     * [Look for the Sealant.] -> get_sealant
     
     
 === get_sealant ===
 I crouch beside her, my hand hovering over the belt. The sealant canister gleams under the faint starlight, just where it always is. My fingers pause, and the memories rush in.
 
-Juno was always so casual about everything. She didn’t join us for money like Grady or for leadership like Singh. No, she joined for fun. She told me that, plain as day, the first time I met her. 
+Juno was always so casual about everything. She didn’t join us for money like Grady or for leadership like Singh. She joined for fun. She told me that, the first time I met her. 
 
-“Why not? It’s something new, something different,” she said with a shrug, tinkering with a busted comm panel. “I’m not into the whole 9-to-5 grind. This gig? It’s perfect. Weird places, weird tech… and I get to blow stuff up sometimes.”
+“Why not? It’s something new, something different,” she said with a shrug, tinkering with a busted comm panel. 
+
+“I’m not into the whole 9-to-5 grind. This gig? It’s perfect. Weird places, weird tech… and I get to blow stuff up sometimes.”
 
 She was brilliant, though. The number of times she patched up our ship mid-flight or got our gears online just in time? I lost count.
 
@@ -21,7 +23,7 @@ She was brilliant, though. The number of times she patched up our ship mid-fligh
 
 “Crash and burn, probably. But hey, I’m here, so don’t sweat it.”
 
-I shake my head, swallowing hard as I unclip the sealant from her belt. This time, she wasn’t here to save us. She was here because she wanted to be, because the galaxy was one big adventure to her.  
+I shake my head, swallowing hard as I unclip the sealant from her belt. This time, she wasn’t here to save us.
 
 “You weren’t supposed to end up like this, Juno. You wanted to see it all, didn’t you?”  
 
