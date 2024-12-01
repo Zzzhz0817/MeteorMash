@@ -30,7 +30,9 @@ public class MapManager : MonoBehaviour
     [SerializeField] private P_StateManager player;
     [SerializeField] private GameObject playerTracker;
     [SerializeField] private GameObject trackerAnchor;
-    [SerializeField] private GameObject[] asteroids;
+    [SerializeField] private GameObject[] staticAsteroids;
+    [SerializeField] private GameObject[] movingAsteroids;
+    [SerializeField] private List<GameObject> movingAsteroidTracker;
     [SerializeField] private GameObject[] missions;
     [SerializeField] private GameObject[] ship;
     [SerializeField] private GameObject prefabAsset;
@@ -65,13 +67,23 @@ public class MapManager : MonoBehaviour
 
     private void BuildMap()
     {
-        asteroids = GameObject.FindGameObjectsWithTag("Meteor");
-        foreach (GameObject objects in asteroids)
+        staticAsteroids = GameObject.FindGameObjectsWithTag("Static Asteroid");
+        foreach (GameObject objects in staticAsteroids)
         {
             Vector3 waypoint = new Vector3(0, 0, 0);
             GameObject obj = Instantiate(prefabAsset, waypoint, transform.rotation) as GameObject;
             obj.transform.SetParent(parentLadder.transform);
-            Debug.Log("I've made a Meteor");
+            Debug.Log("I've made a static asteroid");
+            obj.transform.localPosition = new Vector3(objects.transform.position.x * mapScalar, objects.transform.position.y * mapScalar, objects.transform.position.z * mapScalar);
+        }
+        movingAsteroids = GameObject.FindGameObjectsWithTag("Moving Asteroid");
+        foreach (GameObject objects in movingAsteroids)
+        {
+            Vector3 waypoint = new Vector3(0, 0, 0);
+            GameObject obj = Instantiate(prefabAsset, waypoint, transform.rotation) as GameObject;
+            obj.transform.SetParent(parentLadder.transform);
+            movingAsteroidTracker.Add(obj);
+            Debug.Log("I've made a moving asteroid");
             obj.transform.localPosition = new Vector3(objects.transform.position.x * mapScalar, objects.transform.position.y * mapScalar, objects.transform.position.z * mapScalar);
         }
         foreach (GameObject poi in missions)
@@ -113,6 +125,10 @@ public class MapManager : MonoBehaviour
         playerTracker.transform.rotation = player.transform.rotation;
         playerTracker.transform.localPosition = new Vector3(player.transform.position.x * mapScalar, player.transform.position.y * mapScalar, player.transform.position.z * mapScalar);
         trackerAnchor.transform.localPosition = new Vector3(player.transform.position.x * mapScalar, 0, player.transform.position.z * mapScalar);
+        for (int i = 0; i < movingAsteroidTracker.Count; i++)
+        {
+            movingAsteroidTracker[i].transform.localPosition = new Vector3(movingAsteroids[i].transform.transform.position.x * mapScalar, movingAsteroids[i].transform.position.y * mapScalar, movingAsteroids[i].transform.position.z * mapScalar);
+        }
     }
 
     private void MakeLine()
