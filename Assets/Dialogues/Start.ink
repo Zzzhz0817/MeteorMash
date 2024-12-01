@@ -1,6 +1,8 @@
 // Start Dialogue: Waking Up Floating in Space
 
-I snap awake to the vast emptiness of space. My suit hisses—a soft, steady leak. The HUD flashes: Oxygen: 18%. Suit breach detected. My head spins as I twist around. 
+I snap awake to the vast emptiness of space. 
+
+My suit hisses—a soft, steady leak. The HUD flashes: Oxygen: 18%. Suit breach detected. My head spins as I twist around. 
 ->main
 
 === main ===

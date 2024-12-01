@@ -2,7 +2,9 @@
 INCLUDE Globals.ink
 ~ id_card_acquired = true
 
-The marker leads me to a large asteroid, its surface pockmarked and uneven. I land gently, scanning the area. Singh’s body lies not far away, half-buried in a crater, her suit dark against the pale gray rock.
+The marker leads me to an asteroid, its surface pockmarked and uneven. I land gently, scanning the area. 
+
+Singh’s body lies not far away, half-buried in a crater, her suit dark against the pale gray rock.
     * [Look for the captain's ID card.] -> get_id_card
     
 === get_id_card ===

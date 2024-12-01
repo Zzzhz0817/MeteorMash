@@ -11,7 +11,9 @@ VAR all_acquired = false
 }
 
 === all_collected ===
-The ship looms ahead, its docking bay doors a welcome sight in the endless void. My oxygen gauge blinks angrily, but the last burst from my thrusters is just enough to push me through the airlock. The doors seal behind me with a hiss, and I collapse to my knees, ripping off my helmet as recycled air floods my lungs.
+The ship looms ahead, its docking bay doors a welcome sight in the endless void. My oxygen gauge blinks angrily, but the last burst from my thrusters is just enough to push me through the airlock. 
+
+The doors seal behind me with a hiss, and I collapse to my knees, ripping off my helmet as recycled air floods my lungs.
 
 I glance at the items strapped to my suit: the Hull laser, the sealant, and Singh’s ID card. Each one feels heavier than it should, their weight not from their mass, but from what they represent.
 

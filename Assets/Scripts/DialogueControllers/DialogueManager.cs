@@ -109,7 +109,7 @@ public class DialogueManager : MonoBehaviour
         guidanceText.text = "";
     }
 
-    private void ContinueStory()
+    public void ContinueStory()
     {
         if (currentStory.canContinue)
         {
