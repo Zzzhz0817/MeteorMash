@@ -1053,6 +1053,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 168671792}
+    - targetCorrespondingSourceObject: {fileID: 4773555960519196711, guid: 7fc374ba671a1a740a9028bc51bdbd99,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 168671793}
     - targetCorrespondingSourceObject: {fileID: 353309275501765303, guid: 7fc374ba671a1a740a9028bc51bdbd99,
         type: 3}
       insertIndex: -1
@@ -1136,6 +1140,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkJSON: {fileID: 4900000, guid: ece69f2081d664fe38ae0e9dc4acbed3, type: 3}
+--- !u!114 &168671793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 168671786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 0, g: 1, b: 0, a: 0.78431374}
+  outlineWidth: 5
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!114 &168671795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3719,9 +3741,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92b369f1d8fea4e7b80093c29fc46a19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gradyMeteor: {fileID: 168671788}
-  junoMeteor: {fileID: 1608155362}
-  singhMeteor: {fileID: 817674309}
+  gradyMeteor: {fileID: 168671786}
+  junoMeteor: {fileID: 1608155360}
+  singhMeteor: {fileID: 817674307}
   dialogueManager: {fileID: 1390352791}
 --- !u!4 &593932356 stripped
 Transform:
@@ -6029,6 +6051,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 817674313}
+    - targetCorrespondingSourceObject: {fileID: 656374986455188362, guid: 7e3bce17b008207488ebfda03bac0087,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 817674314}
     - targetCorrespondingSourceObject: {fileID: 4015236646997806291, guid: 7e3bce17b008207488ebfda03bac0087,
         type: 3}
       insertIndex: -1
@@ -6112,6 +6138,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkJSON: {fileID: 4900000, guid: 3e59e2f4248a242b9a548d72d3916ad2, type: 3}
+--- !u!114 &817674314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 817674307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 0, g: 1, b: 0, a: 0.78431374}
+  outlineWidth: 5
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!114 &817674316
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10535,6 +10579,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1608155366}
+    - targetCorrespondingSourceObject: {fileID: 6278882816107242140, guid: cfa2b2dd6123404409f449da57be7810,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1608155367}
     - targetCorrespondingSourceObject: {fileID: 2043144648801719497, guid: cfa2b2dd6123404409f449da57be7810,
         type: 3}
       insertIndex: -1
@@ -10618,6 +10666,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inkJSON: {fileID: 4900000, guid: 641c5bb56e2a04e1788c2e4f265b9578, type: 3}
+--- !u!114 &1608155367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1608155360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 0, g: 1, b: 0, a: 0.78431374}
+  outlineWidth: 5
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!114 &1608155369
 MonoBehaviour:
   m_ObjectHideFlags: 0
