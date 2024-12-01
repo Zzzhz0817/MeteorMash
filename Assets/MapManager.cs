@@ -12,11 +12,12 @@ using static UnityEditor.PlayerSettings;
 public class MapManager : MonoBehaviour
 {
 
-    #region flip manager
+    #region map manager
     [SerializeField] private bool posHeight;
     [SerializeField] private Transform from;
     [SerializeField] private Transform to;
-    [SerializeField] private float speed = .2f;
+    [SerializeField] private float mapScalar = .02f;
+    [SerializeField] private float speed = 5f;
     [SerializeField] private float timeCount = 0.0f;
     #endregion
 
@@ -26,7 +27,7 @@ public class MapManager : MonoBehaviour
     #endregion
 
     #region tracking objects
-    [SerializeField] private GameObject player;
+    [SerializeField] private P_StateManager player;
     [SerializeField] private GameObject playerTracker;
     [SerializeField] private GameObject trackerAnchor;
     [SerializeField] private GameObject[] asteroids;
@@ -71,7 +72,7 @@ public class MapManager : MonoBehaviour
             GameObject obj = Instantiate(prefabAsset, waypoint, transform.rotation) as GameObject;
             obj.transform.SetParent(parentLadder.transform);
             Debug.Log("I've made a Meteor");
-            obj.transform.localPosition = new Vector3(objects.transform.position.x * 0.02f, objects.transform.position.y * 0.02f, objects.transform.position.z * 0.02f);
+            obj.transform.localPosition = new Vector3(objects.transform.position.x * mapScalar, objects.transform.position.y * mapScalar, objects.transform.position.z * mapScalar);
         }
         foreach (GameObject poi in missions)
         {
@@ -79,7 +80,7 @@ public class MapManager : MonoBehaviour
             GameObject mission = Instantiate(missionAsset, waypoint, transform.rotation) as GameObject;
             mission.transform.SetParent(parentLadder.transform);
             Debug.Log("I've made a POI");
-            mission.transform.localPosition = new Vector3(poi.transform.position.x * 0.02f, poi.transform.position.y * 0.02f, poi.transform.position.z * 0.02f);
+            mission.transform.localPosition = new Vector3(poi.transform.position.x * mapScalar, poi.transform.position.y * mapScalar, poi.transform.position.z * mapScalar);
         }
         foreach (GameObject ship in ship)
         {
@@ -87,7 +88,7 @@ public class MapManager : MonoBehaviour
             GameObject goal = Instantiate(shipAsset, waypoint, transform.rotation) as GameObject;
             goal.transform.SetParent(parentLadder.transform);
             Debug.Log("I've made the ship");
-            goal.transform.localPosition = new Vector3(ship.transform.position.x * 0.02f, ship.transform.position.y * 0.02f, ship.transform.position.z * 0.02f);
+            goal.transform.localPosition = new Vector3(ship.transform.position.x * mapScalar, ship.transform.position.y * mapScalar, ship.transform.position.z * mapScalar);
         }
     }
 
@@ -110,8 +111,8 @@ public class MapManager : MonoBehaviour
     private void TrackerUpdate()
     {
         playerTracker.transform.rotation = player.transform.rotation;
-        playerTracker.transform.localPosition = new Vector3(player.transform.position.x * 0.02f, player.transform.position.y * 0.02f, player.transform.position.z * 0.02f);
-        trackerAnchor.transform.localPosition = new Vector3(player.transform.position.x * 0.02f, 0, player.transform.position.z * 0.02f);
+        playerTracker.transform.localPosition = new Vector3(player.transform.position.x * mapScalar, player.transform.position.y * mapScalar, player.transform.position.z * mapScalar);
+        trackerAnchor.transform.localPosition = new Vector3(player.transform.position.x * mapScalar, 0, player.transform.position.z * mapScalar);
     }
 
     private void MakeLine()
