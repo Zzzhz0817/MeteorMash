@@ -124,7 +124,6 @@ public class P_GroundedState : P_State
 
     public override void ExitState(P_StateManager player)
     {
-        player.transform.SetParent(null);
         player.groundedPlayerRotation = player.transform.rotation;
         player.groundedCameraRotation = player.mainCamera.rotation;
         player.rb.isKinematic = false;

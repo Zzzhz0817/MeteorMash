@@ -7,8 +7,12 @@ public class P_FlyingState : P_State
     public override void EnterState(P_StateManager player)
     {
         player.rb.drag = player.drag;
+
         // Reset camera angle form Grounded, Aiming or Pushing
         player.mainCamera.localRotation = Quaternion.identity;
+
+        // Reset parent meteor form Grounded, Aiming or Pushing
+        player.transform.SetParent(null);
         player.anim.SetBool("Flying", true);
     }
 
