@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class P_PushingState : P_State
@@ -20,6 +21,11 @@ public class P_PushingState : P_State
 
     public override void UpdateState(P_StateManager player)
     {
+        float mouseX = Input.GetAxis("Mouse X");
+        float mouseY = Input.GetAxis("Mouse Y");
+        float pitch = -mouseY * player.rotationSpeed * Time.deltaTime;
+        float yaw = mouseX * player.rotationSpeed * Time.deltaTime;
+        player.mainCamera.Rotate(pitch, yaw, 0f, Space.Self);
         // Circular power change logic
         timeElapsed += Time.deltaTime * powerChangeSpeed;
         
@@ -32,6 +38,12 @@ public class P_PushingState : P_State
 
         player.SetPower(power);
         player.UpdatePowerUI();
+        float angle = Vector3.Angle(player.transform.forward, player.mainCamera.forward);
+        if (angle < 80f)
+        {
+            player.SwitchState(player.groundedState);
+            return;
+        }
 
         if (!Input.GetMouseButton(1))
         {

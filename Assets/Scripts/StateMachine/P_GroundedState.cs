@@ -61,11 +61,6 @@ public class P_GroundedState : P_State
             return;
         }
 
-        if (Input.GetMouseButton(0) && Input.GetMouseButton(1))
-        {
-            player.SwitchState(player.pushingState);
-            return;
-        }
     }
 
     private void MoveAlongSurface(P_StateManager player, float horizontalInput, float verticalInput)
@@ -86,7 +81,7 @@ public class P_GroundedState : P_State
 
         if (Physics.Raycast(raycastOrigin, raycastDirection, out hitInfo, raycastDistance))
         {
-            if (hitInfo.collider.CompareTag("Meteor"))
+            if (hitInfo.collider.CompareTag("Static Asteroid"))
             {
                 Vector3 surfaceNormal = hitInfo.normal;
 

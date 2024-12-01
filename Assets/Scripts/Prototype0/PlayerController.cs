@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Meteor"))
+        if (collision.gameObject.CompareTag("Static Asteroid"))
         {
             rb.velocity = Vector3.zero; // Stop movement when hitting a meteor
             rb.angularVelocity = Vector3.zero; // Stop any rotation

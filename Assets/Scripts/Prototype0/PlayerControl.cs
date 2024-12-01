@@ -138,7 +138,7 @@ public class PlayerControl : MonoBehaviour
         Collider[] nearbyObjects = Physics.OverlapSphere(transform.position, 2f);
         foreach (Collider obj in nearbyObjects)
         {
-            if (obj.CompareTag("Meteor") || obj.CompareTag("Ship"))
+            if (obj.CompareTag("Static Asteroid") || obj.CompareTag("Ship"))
             {
                 currentMeteor = obj.gameObject;
                 meteorCenter = currentMeteor.transform.position;
