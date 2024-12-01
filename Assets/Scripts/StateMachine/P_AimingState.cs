@@ -8,7 +8,7 @@ public class P_AimingState : P_State
     {
         //disable all movement
         //disable all movement controls
-        player.transform.rotation = player.groundedCameraRotation;
+        //player.transform.rotation = player.groundedCameraRotation;
         player.rb.isKinematic = true;
         player.laser.SetActive(true);
     }
@@ -35,15 +35,16 @@ public class P_AimingState : P_State
 
         }
         */
+
+        // Rotation (Mouse movement rotates the camera, not the player)
         float mouseX = Input.GetAxis("Mouse X");
         float mouseY = Input.GetAxis("Mouse Y");
         float pitch = -mouseY * player.rotationSpeed * Time.deltaTime;
         float yaw = mouseX * player.rotationSpeed * Time.deltaTime;
-        player.transform.Rotate(pitch, yaw, 0f, Space.Self);
+        player.mainCamera.Rotate(pitch, yaw, 0f, Space.Self);
 
 
-        float angle = Quaternion.Angle(player.transform.rotation, player.groundedPlayerRotation);
-
+        float angle = Vector3.Angle(player.transform.forward, player.mainCamera.forward);
         if (angle < 80f)
         {
             player.SwitchState(player.groundedState);
@@ -75,7 +76,7 @@ public class P_AimingState : P_State
     public override void ExitState(P_StateManager player) 
     { 
         player.rb.isKinematic = false;
-        player.groundedCameraRotation = player.transform.rotation;
+        //player.groundedCameraRotation = player.transform.rotation;
         player.laser.SetActive(false);
     }
 

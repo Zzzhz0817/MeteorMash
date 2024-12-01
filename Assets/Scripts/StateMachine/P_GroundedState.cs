@@ -4,12 +4,12 @@ public class P_GroundedState : P_State
 {
     public override void EnterState(P_StateManager player)
     {
-        if(player.previousState is P_AimingState)
-        {
-            player.transform.rotation = player.groundedPlayerRotation;
-            player.mainCamera.rotation = Quaternion.Inverse(player.groundedPlayerRotation) * player.groundedCameraRotation;
-            Debug.Log(("Enter", player.transform.rotation, player.mainCamera.rotation));
-        }
+        // if(player.previousState is P_AimingState)
+        // {
+        //     player.transform.rotation = player.groundedPlayerRotation;
+        //     player.mainCamera.rotation = Quaternion.Inverse(player.groundedPlayerRotation) * player.groundedCameraRotation;
+        //     Debug.Log(("Enter", player.transform.rotation, player.mainCamera.rotation));
+        // }
         player.rb.velocity = Vector3.zero;
         player.rb.isKinematic = true;
         player.transform.SetParent(player.groundedObject);
@@ -132,9 +132,9 @@ public class P_GroundedState : P_State
         ResetAnims(player);
 
         // Reset relative rotation between player and camera
-        player.mainCamera.localRotation = Quaternion.identity;
+        //player.mainCamera.localRotation = Quaternion.identity;
 
-        Debug.Log(("Exit", player.transform.rotation, player.mainCamera.rotation));
+        //Debug.Log(("Exit", player.transform.rotation, player.mainCamera.rotation));
     }
 
     private void AnimTracker(P_StateManager player)

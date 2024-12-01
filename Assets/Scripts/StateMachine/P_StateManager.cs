@@ -19,7 +19,7 @@ public class P_StateManager : MonoBehaviour
     #region Components
     [HideInInspector] public Rigidbody rb;
     [HideInInspector] public Transform groundedObject;
-    [HideInInspector] public Transform mainCamera;
+    public Transform mainCamera;
     [HideInInspector] public Quaternion groundedPlayerRotation;
     [HideInInspector] public Quaternion groundedCameraRotation;
     [HideInInspector] public Animator anim;
@@ -46,7 +46,6 @@ public class P_StateManager : MonoBehaviour
     public PowerSlideBar powerSlideBar;
     #endregion
 
-    private Transform mainCameraTransform;
 
     private void Start()
     {
@@ -63,8 +62,7 @@ public class P_StateManager : MonoBehaviour
         UpdateOxygenUI();
         UpdatePowerUI();
 
-        mainCameraTransform = transform.Find("Main Camera");
-        if (mainCameraTransform == null)
+        if (mainCamera == null)
         {
             Debug.LogError("Main Camera not found as a child of the player!");
             return;
@@ -75,13 +73,13 @@ public class P_StateManager : MonoBehaviour
     {
         currentState.UpdateState(this);
 
-        if (mainCameraTransform != null)
+        if (mainCamera != null)
         {
             // Get the current local rotation
-            Quaternion currentRotation = mainCameraTransform.localRotation;
+            Quaternion currentRotation = mainCamera.localRotation;
 
             // Lock the Z-axis rotation to 0
-            mainCameraTransform.localRotation = Quaternion.Euler(currentRotation.eulerAngles.x, currentRotation.eulerAngles.y, 0f);
+            mainCamera.localRotation = Quaternion.Euler(currentRotation.eulerAngles.x, currentRotation.eulerAngles.y, 0f);
         }
 
         if (oxygen > 0f)
