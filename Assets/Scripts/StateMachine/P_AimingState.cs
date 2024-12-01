@@ -10,6 +10,7 @@ public class P_AimingState : P_State
         //disable all movement controls
         player.transform.rotation = player.groundedCameraRotation;
         player.rb.isKinematic = true;
+        player.laser.SetActive(true);
     }
 
 
@@ -75,6 +76,7 @@ public class P_AimingState : P_State
     { 
         player.rb.isKinematic = false;
         player.groundedCameraRotation = player.transform.rotation;
+        player.laser.SetActive(false);
     }
 
 }

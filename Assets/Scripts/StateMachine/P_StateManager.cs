@@ -23,6 +23,7 @@ public class P_StateManager : MonoBehaviour
     [HideInInspector] public Quaternion groundedPlayerRotation;
     [HideInInspector] public Quaternion groundedCameraRotation;
     [HideInInspector] public Animator anim;
+    public GameObject laser;
     #endregion
 
     #region Movement Variables

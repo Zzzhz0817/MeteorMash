@@ -15,6 +15,7 @@ public class P_PushingState : P_State
         timeElapsed = 0f;
         player.SetPower(power);
         player.UpdatePowerUI();
+        player.laser.SetActive(true);
     }
 
     public override void UpdateState(P_StateManager player)
@@ -54,5 +55,6 @@ public class P_PushingState : P_State
         power = 0f;
         player.SetPower(power);
         player.UpdatePowerUI();
+        player.laser.SetActive(false);
     }
 }
