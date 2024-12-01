@@ -224,6 +224,7 @@ MonoBehaviour:
   posHeight: 0
   from: {fileID: 0}
   to: {fileID: 0}
+  mapScalar: 0.02
   speed: 0.2
   timeCount: 0
   c1: {r: 1, g: 0.92156863, b: 0.015686275, a: 0.39607844}
@@ -231,7 +232,9 @@ MonoBehaviour:
   player: {fileID: 0}
   playerTracker: {fileID: 760245660838869522}
   trackerAnchor: {fileID: 502789104375732694}
-  asteroids: []
+  staticAsteroids: []
+  movingAsteroids: []
+  movingAsteroidTracker: []
   missions:
   - {fileID: 0}
   - {fileID: 0}

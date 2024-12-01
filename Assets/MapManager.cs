@@ -16,7 +16,7 @@ public class MapManager : MonoBehaviour
     [SerializeField] private bool posHeight;
     [SerializeField] private Transform from;
     [SerializeField] private Transform to;
-    [SerializeField] private float mapScalar = .02f;
+    [SerializeField] private float mapScalar = .001f;
     [SerializeField] private float speed = 5f;
     [SerializeField] private float timeCount = 0.0f;
     #endregion
@@ -122,12 +122,12 @@ public class MapManager : MonoBehaviour
 
     private void TrackerUpdate()
     {
-        playerTracker.transform.rotation = player.transform.rotation;
+        playerTracker.transform.localRotation = player.transform.rotation;
         playerTracker.transform.localPosition = new Vector3(player.transform.position.x * mapScalar, player.transform.position.y * mapScalar, player.transform.position.z * mapScalar);
         trackerAnchor.transform.localPosition = new Vector3(player.transform.position.x * mapScalar, 0, player.transform.position.z * mapScalar);
         for (int i = 0; i < movingAsteroidTracker.Count; i++)
         {
-            movingAsteroidTracker[i].transform.localPosition = new Vector3(movingAsteroids[i].transform.transform.position.x * mapScalar, movingAsteroids[i].transform.position.y * mapScalar, movingAsteroids[i].transform.position.z * mapScalar);
+            movingAsteroidTracker[i].transform.localPosition = new Vector3(movingAsteroids[i].transform.position.x * mapScalar, movingAsteroids[i].transform.position.y * mapScalar, movingAsteroids[i].transform.position.z * mapScalar);
         }
     }
 
