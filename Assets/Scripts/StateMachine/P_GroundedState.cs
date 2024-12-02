@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class P_GroundedState : P_State
 {
+    private bool hasClamped = false;
     public override void EnterState(P_StateManager player)
     {
         // if(player.previousState is P_AimingState)
@@ -14,6 +15,7 @@ public class P_GroundedState : P_State
         player.rb.isKinematic = true;
         player.transform.SetParent(player.groundedObject);
         player.anim.SetBool("Crawl-Idle", true);
+        hasClamped = false;
     }
 
     public override void UpdateState(P_StateManager player)
@@ -33,10 +35,18 @@ public class P_GroundedState : P_State
         float yaw = mouseX * player.rotationSpeed * Time.deltaTime;
         player.mainCamera.Rotate(pitch, yaw, 0f, Space.Self);
 
-        // Clipping the camera
+        // Clamping the camera
         float xRotation = player.mainCamera.localEulerAngles.x;
         if (xRotation < 270f && xRotation > 2f)
         {
+            if (!hasClamped)
+            {
+                Vector3 tempEulerAngles = player.mainCamera.localEulerAngles;
+                tempEulerAngles.x = 2f;
+                player.mainCamera.localEulerAngles = tempEulerAngles;
+                hasClamped = true;
+            }
+            
             player.mainCamera.Rotate(-pitch, 0f, 0f, Space.Self);
         }
 
