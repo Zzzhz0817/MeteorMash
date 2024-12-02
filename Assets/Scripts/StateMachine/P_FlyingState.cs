@@ -7,7 +7,7 @@ public class P_FlyingState : P_State
     public override void EnterState(P_StateManager player)
     {
         player.rb.drag = player.drag;
-
+        player.HandGlow = false;
         // Reset camera angle form Grounded, Aiming or Pushing
         player.mainCamera.localRotation = Quaternion.identity;
 

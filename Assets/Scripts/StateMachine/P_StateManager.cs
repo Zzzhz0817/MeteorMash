@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class P_StateManager : MonoBehaviour
 {
+    public bool HandGlow = false;
+    public ParticleSystem HandGlowL;
+    public ParticleSystem HandGlowR;
+
     #region States
     public P_State currentState;
     public P_State previousState;
@@ -72,7 +76,16 @@ public class P_StateManager : MonoBehaviour
     private void Update()
     {
         currentState.UpdateState(this);
-
+        if (HandGlow == false)
+        {
+            HandGlowL.Stop();
+            HandGlowR.Stop();
+        }
+        else
+        {
+            HandGlowL.Play();
+            HandGlowR.Play();
+        }
         if (mainCamera != null)
         {
             // Get the current local rotation

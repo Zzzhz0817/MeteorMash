@@ -12,6 +12,7 @@ public class P_GrabbingState : P_State
     public override void EnterState(P_StateManager player)
     {
         player.anim.SetBool("Landing", true);
+        player.HandGlow = true;
     }
 
     public override void UpdateState(P_StateManager player)
