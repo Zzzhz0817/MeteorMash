@@ -3733,6 +3733,16 @@ MonoBehaviour:
   groundedCameraRotation: {x: 0, y: 0, z: 0, w: 0}
   anim: {fileID: 0}
   laser: {fileID: 1055799112}
+  breathingClips: []
+  backgroundMusicClips: []
+  idCardClip: {fileID: 0}
+  laserCutterClip: {fileID: 0}
+  sealantSprayClip: {fileID: 0}
+  oxygenRefillClip: {fileID: 0}
+  landingClip: {fileID: 0}
+  crawlingClip: {fileID: 0}
+  oxygenBoostingClip: {fileID: 0}
+  grabbingClip: {fileID: 0}
   moveSpeed: 0.1
   rotationSpeed: 500
   rollSpeed: 50
@@ -3741,6 +3751,9 @@ MonoBehaviour:
   oxygen: 100
   power: 0
   oxygenConsumptionRate: 1
+  isCrawling: 0
+  isBoosting: 0
+  isGrabbing: 0
   oxygenSlideBar: {fileID: 703928070}
   powerSlideBar: {fileID: 1967906505}
 --- !u!1001 &563527089
@@ -9385,7 +9398,7 @@ PrefabInstance:
     - target: {fileID: 7350525976903580177, guid: dc5b5b9864e664d7d964bb62c3519c4d,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7552144494288913321, guid: dc5b5b9864e664d7d964bb62c3519c4d,
         type: 3}
@@ -12689,7 +12702,7 @@ PrefabInstance:
     - target: {fileID: 7350525976903580177, guid: dc5b5b9864e664d7d964bb62c3519c4d,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
