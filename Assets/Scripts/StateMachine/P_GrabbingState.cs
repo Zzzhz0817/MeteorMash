@@ -58,6 +58,7 @@ public class P_GrabbingState : P_State
 
                 if (hit.distance < 0.1f)
                 {
+                    player.PlaySound("Landing");
                     player.groundedObject = hit.transform;
                     player.SwitchState(player.groundedState);
                 }

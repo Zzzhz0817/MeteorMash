@@ -29,6 +29,15 @@ public class P_StateManager : MonoBehaviour
     [HideInInspector] public Quaternion groundedCameraRotation;
     [HideInInspector] public Animator anim;
     public GameObject laser;
+    
+    private AudioSource breathingAudioSource;
+    private AudioSource backgroundMusicAudioSource;
+    private AudioSource crawlingAudioSource;
+    private AudioSource otherSoundsAudioSource;
+
+    public AudioClip[] breathingClips;
+    public AudioClip[] backgroundMusicClips;
+    public AudioClip idCardClip, laserCutterClip, sealantSprayClip, oxygenRefillClip, landingClip, crawlingClip;
     #endregion
 
     #region Movement Variables
@@ -44,6 +53,7 @@ public class P_StateManager : MonoBehaviour
     public float power = 0f;
     public float oxygenConsumptionRate = 1f; // Amount of oxygen to consume per second
     private Coroutine oxygenConsumptionCoroutine;
+    public bool isCrawling = false;
     #endregion
 
     #region UI Elements
@@ -66,6 +76,24 @@ public class P_StateManager : MonoBehaviour
         // Initialize UI
         UpdateOxygenUI();
         UpdatePowerUI();
+        
+        // Initialize audio sources
+        breathingAudioSource = gameObject.AddComponent<AudioSource>();
+        breathingAudioSource.loop = false;
+        breathingAudioSource.volume = 0.1f;
+
+        backgroundMusicAudioSource = gameObject.AddComponent<AudioSource>();
+        backgroundMusicAudioSource.loop = false;
+        
+        crawlingAudioSource = gameObject.AddComponent<AudioSource>();
+        crawlingAudioSource.loop = true;
+        crawlingAudioSource.volume = 0f;
+
+        otherSoundsAudioSource = gameObject.AddComponent<AudioSource>();
+        backgroundMusicAudioSource.loop = false;
+
+        StartCoroutine(PlayBreathingSound());
+        StartCoroutine(PlayBackgroundMusic());
 
         if (mainCamera == null)
         {
@@ -87,6 +115,7 @@ public class P_StateManager : MonoBehaviour
             HandGlowL.Play();
             HandGlowR.Play();
         }
+
         if (mainCamera != null)
         {
             // Get the current local rotation
@@ -101,10 +130,22 @@ public class P_StateManager : MonoBehaviour
             oxygen -= oxygenConsumptionRate * Time.deltaTime; // Consume oxygen at a rate
             oxygen = Mathf.Clamp(oxygen, 0f, 100f);      // Ensure oxygen stays in bounds
             UpdateOxygenUI();
+
+            // Adjust breathing sound volume based on oxygen level
+            breathingAudioSource.volume = oxygen < 20f ? 0.3f : 0.1f;
         }
         else
         {
             Debug.LogError("Oxygen depleted!");
+        }
+
+        if (isCrawling)
+        {
+            crawlingAudioSource.volume = 1f;
+        }
+        else
+        {
+            crawlingAudioSource.volume = 0f;
         }
     }
 
@@ -178,6 +219,68 @@ public class P_StateManager : MonoBehaviour
         else
         {
             Debug.LogWarning("PowerSlideBar not assigned in the Inspector.");
+        }
+    }
+    
+    private IEnumerator PlayBreathingSound()
+    {
+        while (true)
+        {
+            breathingAudioSource.clip = breathingClips[Random.Range(0, breathingClips.Length)];
+            breathingAudioSource.Play();
+
+            yield return new WaitForSeconds(breathingAudioSource.clip.length);
+        }
+    }
+
+    private IEnumerator PlayBackgroundMusic()
+    {
+        while (true)
+        {
+            if (oxygen < 50f)
+            {
+                backgroundMusicAudioSource.clip = backgroundMusicClips[2];
+            }
+            else
+            {
+                backgroundMusicAudioSource.clip = backgroundMusicClips[Random.Range(0, 2)];
+            }
+
+            backgroundMusicAudioSource.Play();
+
+            while (backgroundMusicAudioSource.isPlaying)
+            {
+                yield return null;
+            }
+        }
+    }
+
+    public void PlaySound(string soundName)
+    {
+        AudioClip clip = null;
+
+        switch (soundName)
+        {
+            case "IDCard":
+                clip = idCardClip;
+                break;
+            case "LaserCutter":
+                clip = laserCutterClip;
+                break;
+            case "SealantSpray":
+                clip = sealantSprayClip;
+                break;
+            case "OxygenRefill":
+                clip = oxygenRefillClip;
+                break;
+            case "Landing":
+                clip = landingClip;
+                break;
+        }
+
+        if (clip != null)
+        {
+            otherSoundsAudioSource.PlayOneShot(clip);
         }
     }
 }
