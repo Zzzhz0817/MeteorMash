@@ -60,6 +60,15 @@ public class P_FlyingState : P_State
                 player.oxygen -= player.oxygenConsumptionRate * Time.deltaTime;
             }
 
+            if (horizontalInput != 0f || verticalInput != 0f || shiftHeld || spaceHeld)
+            {
+                player.isBoosting = true;
+            }
+            else
+            {
+                player.isBoosting = false;
+            }
+
             
             player.oxygen = Mathf.Clamp(player.oxygen, 0f, 100f);      // Ensure oxygen stays in bounds
             player.UpdateOxygenUI();
@@ -112,6 +121,7 @@ public class P_FlyingState : P_State
     public override void ExitState(P_StateManager player)
     {
         player.anim.SetBool("Flying", false);
+        player.isBoosting = false;
     }
 
     private void ApplyDrag(P_StateManager player)

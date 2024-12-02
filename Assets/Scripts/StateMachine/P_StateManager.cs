@@ -33,11 +33,13 @@ public class P_StateManager : MonoBehaviour
     private AudioSource breathingAudioSource;
     private AudioSource backgroundMusicAudioSource;
     private AudioSource crawlingAudioSource;
+    private AudioSource oxygenBoostingAudioSource;
+    private AudioSource grabbingAudioSource;
     private AudioSource otherSoundsAudioSource;
 
     public AudioClip[] breathingClips;
     public AudioClip[] backgroundMusicClips;
-    public AudioClip idCardClip, laserCutterClip, sealantSprayClip, oxygenRefillClip, landingClip, crawlingClip;
+    public AudioClip idCardClip, laserCutterClip, sealantSprayClip, oxygenRefillClip, landingClip, crawlingClip, oxygenBoostingClip, grabbingClip;
     #endregion
 
     #region Movement Variables
@@ -54,6 +56,8 @@ public class P_StateManager : MonoBehaviour
     public float oxygenConsumptionRate = 1f; // Amount of oxygen to consume per second
     private Coroutine oxygenConsumptionCoroutine;
     public bool isCrawling = false;
+    public bool isBoosting = false;
+    public bool isGrabbing = false;
     #endregion
 
     #region UI Elements
@@ -90,6 +94,18 @@ public class P_StateManager : MonoBehaviour
         crawlingAudioSource.volume = 0f;
         crawlingAudioSource.clip = crawlingClip;
         crawlingAudioSource.Play();
+
+        oxygenBoostingAudioSource = gameObject.AddComponent<AudioSource>();
+        oxygenBoostingAudioSource.loop = true;
+        oxygenBoostingAudioSource.volume = 0f;
+        oxygenBoostingAudioSource.clip = oxygenBoostingClip;
+        oxygenBoostingAudioSource.Play();
+
+        grabbingAudioSource = gameObject.AddComponent<AudioSource>();
+        grabbingAudioSource.loop = true;
+        grabbingAudioSource.volume = 0f;
+        grabbingAudioSource.clip = grabbingClip;
+        grabbingAudioSource.Play();
 
         otherSoundsAudioSource = gameObject.AddComponent<AudioSource>();
         backgroundMusicAudioSource.loop = false;
@@ -141,14 +157,9 @@ public class P_StateManager : MonoBehaviour
             Debug.LogError("Oxygen depleted!");
         }
 
-        if (isCrawling)
-        {
-            crawlingAudioSource.volume = 1f;
-        }
-        else
-        {
-            crawlingAudioSource.volume = 0f;
-        }
+        crawlingAudioSource.volume = isCrawling ? 1f : 0f;
+        oxygenBoostingAudioSource.volume = isBoosting ? 1f : 0f;
+        grabbingAudioSource.volume = isGrabbing ? 1f : 0f;
     }
 
     public void SwitchState(P_State state)

@@ -13,6 +13,7 @@ public class P_GrabbingState : P_State
     {
         player.anim.SetBool("Landing", true);
         player.HandGlow = true;
+        player.isGrabbing = true;
     }
 
     public override void UpdateState(P_StateManager player)
@@ -74,5 +75,6 @@ public class P_GrabbingState : P_State
     public override void ExitState(P_StateManager player)
     {
         player.anim.SetBool("Landing", false);
+        player.isGrabbing = false;
     }
 }

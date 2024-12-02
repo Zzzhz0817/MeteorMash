@@ -140,6 +140,8 @@ public class P_GroundedState : P_State
         player.anim.SetBool("Crawl-Idle", false);
         ResetAnims(player);
 
+        player.isCrawling = false;
+
         // Reset relative rotation between player and camera
         //player.mainCamera.localRotation = Quaternion.identity;
 
