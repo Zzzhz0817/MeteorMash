@@ -43,6 +43,13 @@ public class P_AimingState : P_State
         float yaw = mouseX * player.rotationSpeed * Time.deltaTime;
         player.mainCamera.Rotate(pitch, yaw, 0f, Space.Self);
 
+        // Clipping the camera
+        float xRotation = player.mainCamera.localEulerAngles.x;
+        if (xRotation < 270f && xRotation > 2f)
+        {
+            player.mainCamera.Rotate(-pitch, 0f, 0f, Space.Self);
+        }
+
 
         float angle = Vector3.Angle(player.transform.forward, player.mainCamera.forward);
         if (angle < 80f)

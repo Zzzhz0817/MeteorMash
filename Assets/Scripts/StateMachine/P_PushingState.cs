@@ -26,6 +26,14 @@ public class P_PushingState : P_State
         float pitch = -mouseY * player.rotationSpeed * Time.deltaTime;
         float yaw = mouseX * player.rotationSpeed * Time.deltaTime;
         player.mainCamera.Rotate(pitch, yaw, 0f, Space.Self);
+
+        // Clipping the camera
+        float xRotation = player.mainCamera.localEulerAngles.x;
+        if (xRotation < 270f && xRotation > 2f)
+        {
+            player.mainCamera.Rotate(-pitch, 0f, 0f, Space.Self);
+        }
+
         // Circular power change logic
         timeElapsed += Time.deltaTime * powerChangeSpeed;
         

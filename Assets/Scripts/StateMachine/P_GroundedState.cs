@@ -33,6 +33,13 @@ public class P_GroundedState : P_State
         float yaw = mouseX * player.rotationSpeed * Time.deltaTime;
         player.mainCamera.Rotate(pitch, yaw, 0f, Space.Self);
 
+        // Clipping the camera
+        float xRotation = player.mainCamera.localEulerAngles.x;
+        if (xRotation < 270f && xRotation > 2f)
+        {
+            player.mainCamera.Rotate(-pitch, 0f, 0f, Space.Self);
+        }
+
         // Rolling (Q and E keys rotate the player)
         float rollInput = Input.GetKey(KeyCode.Q) ? -1f : Input.GetKey(KeyCode.E) ? 1f : 0f;
         if (rollInput != 0f)
@@ -65,6 +72,14 @@ public class P_GroundedState : P_State
 
     private void MoveAlongSurface(P_StateManager player, float horizontalInput, float verticalInput)
     {
+        if(horizontalInput != 0f || verticalInput != 0f)
+        {
+            player.isCrawling = true;
+        }
+        else
+        {
+            player.isCrawling = false;
+        }
         // Get the input
         Vector3 inputDirection = new Vector3(horizontalInput, verticalInput, 0f).normalized;
 

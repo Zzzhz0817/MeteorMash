@@ -31,7 +31,8 @@ public class OxygenSlideBar : MonoBehaviour
             oxygen = Mathf.Clamp(oxygen, 0f, 100f);
         }
 
-        // Map 0-100 to 62-88 linearly
+        // Map linearly
+        Debug.Log(oxygen);
         float mappedValue = Mathf.Lerp(78.12f, 84.88f, oxygen / 100f);
         oxygenSlider.value = mappedValue;
     }

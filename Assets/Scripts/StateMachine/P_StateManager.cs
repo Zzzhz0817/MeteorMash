@@ -88,6 +88,8 @@ public class P_StateManager : MonoBehaviour
         crawlingAudioSource = gameObject.AddComponent<AudioSource>();
         crawlingAudioSource.loop = true;
         crawlingAudioSource.volume = 0f;
+        crawlingAudioSource.clip = crawlingClip;
+        crawlingAudioSource.Play();
 
         otherSoundsAudioSource = gameObject.AddComponent<AudioSource>();
         backgroundMusicAudioSource.loop = false;
