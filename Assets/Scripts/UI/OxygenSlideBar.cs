@@ -13,9 +13,8 @@ public class OxygenSlideBar : MonoBehaviour
             return;
         }
 
-        // Set the slider's range (62 to 88)
-        oxygenSlider.minValue = 78.12f;
-        oxygenSlider.maxValue = 84.88f;
+        oxygenSlider.minValue = 0;
+        oxygenSlider.maxValue = 100f;
     }
 
     /// <summary>
@@ -32,8 +31,7 @@ public class OxygenSlideBar : MonoBehaviour
         }
 
         // Map linearly
-        Debug.Log(oxygen);
-        float mappedValue = Mathf.Lerp(78.12f, 84.88f, oxygen / 100f);
+        float mappedValue = Mathf.Lerp(62f, 88f, oxygen / 100f);
         oxygenSlider.value = mappedValue;
     }
 }

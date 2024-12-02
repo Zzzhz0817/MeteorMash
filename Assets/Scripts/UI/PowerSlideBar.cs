@@ -12,10 +12,6 @@ public class PowerSlideBar : MonoBehaviour
             Debug.LogError("Power Slider is not assigned!");
             return;
         }
-
-        // Set the slider's range (36 to 64)
-        powerSlider.minValue = 36f;
-        powerSlider.maxValue = 64f;
     }
 
     /// <summary>
@@ -32,7 +28,7 @@ public class PowerSlideBar : MonoBehaviour
         }
 
         // Map 0-100 to 36-64 linearly
-        float mappedValue = Mathf.Lerp(46.2f, 53.8f, power / 100f);
+        float mappedValue = Mathf.Lerp(36f, 64f, power / 100f);
         powerSlider.value = mappedValue;
     }
 }
