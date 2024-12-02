@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class P_GrabbingState : P_State
 {
-    public float rayLength = 0.13f; // Adjust the length of ray casted
+    public float rayLength = 0.6f; // Adjust the length of ray casted
     public float minSpeedThreshold = 1f; // Speed threshold for force adjustment
     public float minForce = 0.2f; // Minimum force applied
     public float maxForce = 10f; // Maximum force applied
