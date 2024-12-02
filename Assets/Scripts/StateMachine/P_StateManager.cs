@@ -3,14 +3,15 @@ using UnityEngine;
 
 public class P_StateManager : MonoBehaviour
 {
+    #region Hand Glow
     public bool HandGlow = false;
     public ParticleSystem HandGlowL;
     public ParticleSystem HandGlowR;
+    #endregion
 
     #region States
     public P_State currentState;
     public P_State previousState;
-
     public P_FlyingState flyingState = new P_FlyingState();
     public P_GroundedState groundedState = new P_GroundedState();
     public P_GrabbingState grabbingState = new P_GrabbingState();

@@ -81,7 +81,12 @@ public class P_FlyingState : P_State
         if (shiftHeld)
         {
             player.rb.AddRelativeForce(Vector3.forward * player.acceleration * Time.deltaTime, ForceMode.Acceleration);
+            player.anim.SetBool("Fast-Fly", true);
             // TO DO: oxygen consumption
+        }
+        else if (!shiftHeld)
+        {
+            player.anim.SetBool("Fast-Fly", false);
         }
 
         if (spaceHeld)
