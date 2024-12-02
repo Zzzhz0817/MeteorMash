@@ -111,6 +111,14 @@ public class DialogueManager : MonoBehaviour
 
     public void ContinueStory()
     {
+        // check if current dialogue has choices
+        // if it does, do not continue by pressing F
+        List<Choice> currentChoices = currentStory.currentChoices;
+        if (currentChoices.Count > 0)
+        {
+            return;
+        }
+        
         if (currentStory.canContinue)
         {
             // change player state to dialogue state after tutorial
