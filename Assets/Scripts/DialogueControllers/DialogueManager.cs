@@ -113,10 +113,32 @@ public class DialogueManager : MonoBehaviour
     {
         if (currentStory.canContinue)
         {
+            // change player state to dialogue state after tutorial
+            if (dialogueText.text.Contains("Tutorial"))
+            {
+                player.SwitchState(player.dialogueState);
+            }
+
             // set text for current dialogue line
             dialogueText.text = currentStory.Continue();
             // display choices if there are any
             DisplayChoices();
+
+            // change player state to previous state during tutorial
+            if (dialogueText.text.Contains("Tutorial"))
+            {
+                Debug.Log("Tutorial dialogue");
+                if (player.previousState != null)
+                {
+                    Debug.Log("Switching to previous state");
+                    player.SwitchToPreviousState();
+                }
+                else
+                {
+                    Debug.Log("Switching to flying state");
+                    player.SwitchState(player.flyingState);
+                }
+            }
         }
         else
         {
