@@ -1,6 +1,7 @@
 // Singh Dialogue: Finding Singh’s Body
 INCLUDE Globals.ink
 ~ id_card_acquired = true
+~ all_acquired = laser_acquired && sealant_acquired && id_card_acquired
 
 The marker leads me to an asteroid, its surface pockmarked and uneven. I land gently, scanning the area. 
 

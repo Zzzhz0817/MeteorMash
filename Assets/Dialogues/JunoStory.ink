@@ -1,6 +1,7 @@
 // Juno Dialogue: Finding Juno’s Body
 INCLUDE Globals.ink
 ~ sealant_acquired = true
+~ all_acquired = laser_acquired && sealant_acquired && id_card_acquired
 
 The HUD guides me to the marker, an asteroid spinning slowly against the endless void. It is not so easy to spother since half of her body is buried in rock.
 

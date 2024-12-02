@@ -1,6 +1,7 @@
 // Grady Dialogue: Finding Grady’s Body
 INCLUDE Globals.ink
 ~ laser_acquired = true
+~ all_acquired = laser_acquired && sealant_acquired && id_card_acquired
 
 I drift toward the marker, the asteroid growing larger as the HUD guides me in. My thrusters fire one last burst, and I land softly, anchoring myself on the rough surface.
 
