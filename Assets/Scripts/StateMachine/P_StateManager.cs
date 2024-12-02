@@ -84,11 +84,13 @@ public class P_StateManager : MonoBehaviour
         // Initialize audio sources
         breathingAudioSource = gameObject.AddComponent<AudioSource>();
         breathingAudioSource.loop = false;
-        breathingAudioSource.volume = 0.1f;
+        breathingAudioSource.volume = 0.075f;
 
         backgroundMusicAudioSource = gameObject.AddComponent<AudioSource>();
         backgroundMusicAudioSource.loop = false;
-        
+        backgroundMusicAudioSource.volume = 0.2f;
+
+
         crawlingAudioSource = gameObject.AddComponent<AudioSource>();
         crawlingAudioSource.loop = true;
         crawlingAudioSource.volume = 0f;
@@ -108,7 +110,7 @@ public class P_StateManager : MonoBehaviour
         grabbingAudioSource.Play();
 
         otherSoundsAudioSource = gameObject.AddComponent<AudioSource>();
-        backgroundMusicAudioSource.loop = false;
+        otherSoundsAudioSource.loop = false;
 
         StartCoroutine(PlayBreathingSound());
         StartCoroutine(PlayBackgroundMusic());
@@ -275,18 +277,23 @@ public class P_StateManager : MonoBehaviour
         switch (soundName)
         {
             case "IDCard":
+                otherSoundsAudioSource.volume = 1f;
                 clip = idCardClip;
                 break;
             case "LaserCutter":
+                otherSoundsAudioSource.volume = 1f;
                 clip = laserCutterClip;
                 break;
             case "SealantSpray":
+                otherSoundsAudioSource.volume = 1f;
                 clip = sealantSprayClip;
                 break;
             case "OxygenRefill":
+                otherSoundsAudioSource.volume = 1f;
                 clip = oxygenRefillClip;
                 break;
             case "Landing":
+                otherSoundsAudioSource.volume = .3f;
                 clip = landingClip;
                 break;
         }

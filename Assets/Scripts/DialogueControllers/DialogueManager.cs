@@ -1,10 +1,10 @@
+using Ink.Runtime;
+using Ink.UnityIntegration;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
-using Ink.Runtime;
+using UnityEngine;
 using UnityEngine.EventSystems;
-using Ink.UnityIntegration;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -118,7 +118,7 @@ public class DialogueManager : MonoBehaviour
         {
             return;
         }
-        
+
         if (currentStory.canContinue)
         {
             // change player state to dialogue state after tutorial
@@ -161,7 +161,7 @@ public class DialogueManager : MonoBehaviour
         // defensive check to make sure we have enough choices UI
         if (currentChoices.Count > choices.Length)
         {
-            Debug.LogError("Not enough choices UI to display " 
+            Debug.LogError("Not enough choices UI to display "
                 + currentChoices.Count + " choices!");
             return;
         }

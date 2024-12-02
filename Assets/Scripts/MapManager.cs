@@ -1,13 +1,5 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
-using Unity.VisualScripting;
-using UnityEditor;
-using UnityEditor.Sprites;
 using UnityEngine;
-using UnityEngine.InputSystem.HID;
-using static UnityEditor.PlayerSettings;
 
 public class MapManager : MonoBehaviour
 {
@@ -110,7 +102,7 @@ public class MapManager : MonoBehaviour
         {
             posHeight = false;
         }
-        else if (posHeight ==false && player.transform.position.y > 0)
+        else if (posHeight == false && player.transform.position.y > 0)
         {
             posHeight = true;
         }
