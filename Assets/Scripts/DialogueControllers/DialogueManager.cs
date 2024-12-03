@@ -131,6 +131,16 @@ public class DialogueManager : MonoBehaviour
                 player.SwitchState(player.dialogueState);
             }
 
+            if (dialogueText.text.Contains("Slowly, carefully, I attach the transfer hose between us") ||
+                dialogueText.text.Contains("I curse under my breath, my hands trembling as I hook up the transfer system") ||
+                dialogueText.text.Contains("Kneeling beside her, I connect the transfer hose to her tank") ||
+                dialogueText.text.Contains("The door to the control room looms ahead, its surface warped and jammed tight") ||
+                dialogueText.text.Contains("The control panel flickers to life as I slide Singh") ||
+                dialogueText.text.Contains("Air rushes past me as I step through the broken doorway"))
+            {
+                Time.timeScale = 0f;
+            }
+
             // set text for current dialogue line
             dialogueText.text = currentStory.Continue();
             // display choices if there are any
@@ -150,6 +160,37 @@ public class DialogueManager : MonoBehaviour
                     Debug.Log("Switching to flying state");
                     player.SwitchState(player.flyingState);
                 }
+            }
+
+            // Take oxygen from Grady, Juno and Singh
+            if (dialogueText.text.Contains("Slowly, carefully, I attach the transfer hose between us") ||
+                dialogueText.text.Contains("I curse under my breath, my hands trembling as I hook up the transfer system") ||
+                dialogueText.text.Contains("Kneeling beside her, I connect the transfer hose to her tank"))
+            {
+                Time.timeScale = 1f;
+                player.PlaySound("OxygenRefill");
+                player.AddOxygen(50f);
+            }
+
+            // Using Laser
+            if (dialogueText.text.Contains("The door to the control room looms ahead, its surface warped and jammed tight"))
+            {
+                Time.timeScale = 1f;
+                player.PlaySound("LaserCutter");
+            }
+
+            // Using ID card
+            if (dialogueText.text.Contains("The control panel flickers to life as I slide Singh"))
+            {
+                Time.timeScale = 1f;
+                player.PlaySound("IDCard");
+            }
+
+            // Using Sealant
+            if (dialogueText.text.Contains("Air rushes past me as I step through the broken doorway"))
+            {
+                Time.timeScale = 1f;
+                player.PlaySound("SealantSpray");
             }
         }
         else
