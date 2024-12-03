@@ -41,7 +41,7 @@ public class P_StateManager : MonoBehaviour
     public AudioClip[] breathingClips;
     public AudioClip[] backgroundMusicClips;
     public AudioClip idCardClip, laserCutterClip, sealantSprayClip, oxygenRefillClip,
-            landingClip, crawlingClip, oxygenBoostingClip, grabbingClip, suffocationClip;
+            landingClip, crawlingClip, oxygenBoostingClip, grabbingClip, suffocationClip, jumpClip;
     #endregion
 
     #region Movement Variables
@@ -330,6 +330,10 @@ public class P_StateManager : MonoBehaviour
             case "Suffocation":
                 otherSoundsAudioSource.volume = .3f;
                 clip = suffocationClip;
+                break;
+            case "Jump":
+                otherSoundsAudioSource.volume = .3f;
+                clip = jumpClip;
                 break;
         }
 

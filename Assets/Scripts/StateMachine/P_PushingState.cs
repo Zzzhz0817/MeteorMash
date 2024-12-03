@@ -65,6 +65,7 @@ public class P_PushingState : P_State
             player.rb.AddForce(pushDirection * (power * 0.02f + .6f), ForceMode.Impulse);
             player.transform.rotation = player.mainCamera.rotation;
             player.SwitchState(player.flyingState);
+            player.PlaySound("Jump");
             return;
         }
     }
