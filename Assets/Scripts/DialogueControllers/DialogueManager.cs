@@ -125,12 +125,13 @@ public class DialogueManager : MonoBehaviour
 
         if (currentStory.canContinue)
         {
+            /*
             // change player state to dialogue state after tutorial
             if (dialogueText.text.Contains("Tutorial"))
             {
                 player.SwitchState(player.dialogueState);
             }
-
+            */
             if (dialogueText.text.Contains("Slowly, carefully, I attach the transfer hose between us") ||
                 dialogueText.text.Contains("I curse under my breath, my hands trembling as I hook up the transfer system") ||
                 dialogueText.text.Contains("Kneeling beside her, I connect the transfer hose to her tank") ||
@@ -145,7 +146,7 @@ public class DialogueManager : MonoBehaviour
             dialogueText.text = currentStory.Continue();
             // display choices if there are any
             DisplayChoices();
-
+            /*
             // change player state to previous state during tutorial
             if (dialogueText.text.Contains("Tutorial"))
             {
@@ -161,7 +162,7 @@ public class DialogueManager : MonoBehaviour
                     player.SwitchState(player.flyingState);
                 }
             }
-
+            */
             // Take oxygen from Grady, Juno and Singh
             if (dialogueText.text.Contains("Slowly, carefully, I attach the transfer hose between us") ||
                 dialogueText.text.Contains("I curse under my breath, my hands trembling as I hook up the transfer system") ||
