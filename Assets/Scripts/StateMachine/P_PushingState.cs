@@ -38,7 +38,7 @@ public class P_PushingState : P_State
         timeElapsed += Time.deltaTime * powerChangeSpeed;
         
         // Use a sine function to oscillate power between 0 and maxPower
-        power = (Mathf.Sin(timeElapsed) + 1) / 2 * maxPower;
+        power = (Mathf.Sin(timeElapsed)*.75f + 1) / 2 * maxPower;
 
         // Adjust speed dynamically: faster near 100
         float closenessFactor = Mathf.Abs(maxPower - power) / maxPower; // 0 near 100, 1 near 0

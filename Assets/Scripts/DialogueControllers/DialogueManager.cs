@@ -22,6 +22,8 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI guidanceText;
     [SerializeField] private P_StateManager player;
 
+    protected bool hasVisitedShip = false;
+
     [Header("Choices UI")]
     [SerializeField] private GameObject[] choices;
     private TextMeshProUGUI[] choicesText;
@@ -166,13 +168,19 @@ public class DialogueManager : MonoBehaviour
             // Take oxygen from Grady, Juno and Singh
             if (dialogueText.text.Contains("Slowly, carefully, I attach the transfer hose between us") ||
                 dialogueText.text.Contains("I curse under my breath, my hands trembling as I hook up the transfer system") ||
+                dialogueText.text.Contains("I refill my oxygen with what's left of the airlock's emergency supply.") ||
                 dialogueText.text.Contains("Kneeling beside her, I connect the transfer hose to her tank"))
+
             {
                 Time.timeScale = 1f;
                 player.PlaySound("OxygenRefill");
                 player.AddOxygen(50f);
             }
 
+            if (dialogueText.text.Contains("The HUD highlights the markers."))
+            {
+                hasVisitedShip = true;
+            }
             // Using Laser
             if (dialogueText.text.Contains("The door to the control room looms ahead, its surface warped and jammed tight"))
             {
