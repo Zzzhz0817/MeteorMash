@@ -50,4 +50,8 @@ I stand in the control room, staring at the navigation console as it boots up. T
 I set the course, the ship’s engines humming faintly as they power up. There’s a long road ahead, but the weight of their hopes and dreams will carry me forward.
 
 “We’ll finish it. Together.”
+
+[Thanks for playing!]
+
+~ game_end = true
 -> END
