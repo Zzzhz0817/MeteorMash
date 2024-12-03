@@ -4185,10 +4185,11 @@ MonoBehaviour:
   oxygenBoostingClip: {fileID: 8300000, guid: f5f59435436de2e4c8bb41fc4e239bc8, type: 3}
   grabbingClip: {fileID: 8300000, guid: 2a5a0f9e1369a374f9be6a7b24dc96ef, type: 3}
   suffocationClip: {fileID: 8300000, guid: a24fce83116fb544f98c136fc36dbbbc, type: 3}
+  jumpClip: {fileID: 8300000, guid: ff3d366e3a001514b9a05bafb0906715, type: 3}
   moveSpeed: 0.3
   rotationSpeed: 500
   rollSpeed: 50
-  acceleration: 50
+  acceleration: 30
   drag: 0.1
   oxygen: 100
   power: 0
