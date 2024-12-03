@@ -8,6 +8,9 @@ public class P_DialogueState : P_State
     public override void EnterState(P_StateManager player)
     {
         player.oxygenBoostingAudioSource.enabled = false;
+        player.crawlingAudioSource.enabled = false;
+        player.grabbingAudioSource.enabled = false;
+
         Cursor.visible = true;
         // Pause the game
         Time.timeScale = 0f;
@@ -29,7 +32,11 @@ public class P_DialogueState : P_State
     {
         // Resume the game
         Time.timeScale = 1f;
+
         player.oxygenBoostingAudioSource.enabled = true;
+        player.crawlingAudioSource.enabled = false;
+        player.grabbingAudioSource.enabled = false;
+
         Cursor.visible = false;
     }
 }

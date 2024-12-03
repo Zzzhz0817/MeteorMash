@@ -8,6 +8,9 @@ public class P_PushingState : P_State
     private float powerChangeSpeed = 0.5f;
     private float timeElapsed = 0f;
 
+    private float timer = 0f;
+    private bool isTimerActive = false;
+
     public override void EnterState(P_StateManager player)
     {
         player.powerSlideBar.gameObject.SetActive(true);
@@ -55,8 +58,24 @@ public class P_PushingState : P_State
 
         if (!Input.GetMouseButton(1))
         {
-            player.SwitchState(player.previousState);
-            return;
+            if (!isTimerActive)
+            {
+                isTimerActive = true;
+                timer = 0.1f;
+            }
+            else
+            {
+                timer -= Time.deltaTime;
+                if (timer <= 0f)
+                {
+                    player.SwitchState(player.previousState);
+                    isTimerActive = false;
+                }
+            }
+        }
+        else
+        {
+            isTimerActive = false;
         }
 
         if (!Input.GetMouseButton(0))
