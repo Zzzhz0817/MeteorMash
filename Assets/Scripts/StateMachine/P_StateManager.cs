@@ -297,6 +297,7 @@ public class P_StateManager : MonoBehaviour
         }
 
         // Load the death scene
+        Cursor.visible = true;
         SceneManager.LoadScene("Menu-Oxygen-Dead");
     }
 

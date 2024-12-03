@@ -12,6 +12,7 @@ public class P_DialogueState : P_State
         player.grabbingAudioSource.enabled = false;
 
         Cursor.visible = true;
+        Debug.Log("visable");
         // Pause the game
         Time.timeScale = 0f;
 
@@ -38,5 +39,6 @@ public class P_DialogueState : P_State
         player.grabbingAudioSource.enabled = false;
 
         Cursor.visible = false;
+        Debug.Log("not visable");
     }
 }
