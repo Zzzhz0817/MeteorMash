@@ -55,7 +55,7 @@ public class P_StateManager : MonoBehaviour
     #region Resource Variables
     public float oxygen = 100f;
     public float power = 0f;
-    public float oxygenConsumptionRate = 0.3f; // Amount of oxygen to consume per second
+    public float oxygenConsumptionRate = 0.2f; // Amount of oxygen to consume per second
     private Coroutine oxygenConsumptionCoroutine;
     public bool isCrawling = false;
     public bool isBoosting = false;
