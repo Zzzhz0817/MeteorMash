@@ -1,5 +1,4 @@
 using Ink.Runtime;
-using Ink.UnityIntegration;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -10,8 +9,13 @@ public class DialogueManager : MonoBehaviour
 {
     [Header("Dialogue UI")]
 
-    [Header("Globals Ink File")]
-    [SerializeField] private InkFile globalsInkFile;
+    // [Header("Globals Ink File")]
+    // [SerializeField] private InkFile globalsInkFile;
+
+     // variable for the load_globals.ink JSON
+    [Header("Load Globals JSON")]
+    [SerializeField] private TextAsset loadGlobalsJSON;
+
     [SerializeField] private GameObject dialoguePanel;
     [SerializeField] private TextMeshProUGUI dialogueText;
     [SerializeField] private GameObject guidancePanel;
@@ -38,7 +42,7 @@ public class DialogueManager : MonoBehaviour
         }
         instance = this;
 
-        dialogueVariables = new DialogueVariables(globalsInkFile.filePath);
+        dialogueVariables = new DialogueVariables(loadGlobalsJSON);
     }
 
     public static DialogueManager GetInstance()
