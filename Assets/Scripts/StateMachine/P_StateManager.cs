@@ -49,13 +49,13 @@ public class P_StateManager : MonoBehaviour
     public float rotationSpeed = 500f;
     public float rollSpeed = 50f;
     public float acceleration = 50f;
-    public float drag = 0.1f;
+    public float drag = 0.2f;
     #endregion
 
     #region Resource Variables
     public float oxygen = 100f;
     public float power = 0f;
-    public float oxygenConsumptionRate = 1f; // Amount of oxygen to consume per second
+    public float oxygenConsumptionRate = 0.3f; // Amount of oxygen to consume per second
     private Coroutine oxygenConsumptionCoroutine;
     public bool isCrawling = false;
     public bool isBoosting = false;
@@ -282,7 +282,7 @@ public class P_StateManager : MonoBehaviour
     {
         PlaySound("Suffocation");
 
-        float fadeDuration = 5f;
+        float fadeDuration = 4f;
         float elapsedTime = 0f;
 
         while (elapsedTime < fadeDuration)

@@ -5,7 +5,7 @@ public class P_PushingState : P_State
 {
     private float power = 0f;
     private float maxPower = 100f;
-    private float powerChangeSpeed = 1f;
+    private float powerChangeSpeed = 0.5f;
     private float timeElapsed = 0f;
 
     public override void EnterState(P_StateManager player)
@@ -62,7 +62,7 @@ public class P_PushingState : P_State
         if (!Input.GetMouseButton(0))
         {
             Vector3 pushDirection = player.mainCamera.forward;
-            player.rb.AddForce(pushDirection * power * 0.02f, ForceMode.Impulse);
+            player.rb.AddForce(pushDirection * (power * 0.02f + 20f), ForceMode.Impulse);
             player.transform.rotation = player.mainCamera.rotation;
             player.SwitchState(player.flyingState);
             return;

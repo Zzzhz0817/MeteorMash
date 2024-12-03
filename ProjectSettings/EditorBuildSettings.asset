@@ -14,4 +14,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Menu-Title.unity
     guid: d4994a44159125741b53e3d7d5a369e6
+  - enabled: 1
+    path: Assets/Scenes/Prototype0.unity
+    guid: 9f6d45c407223f849a2abcc5fff25753
+  - enabled: 1
+    path: Assets/Scenes/Menu-Oxygen-Dead.unity
+    guid: 48b88787cde6d7842a041f3daa8af1c3
+  - enabled: 1
+    path: Assets/Scenes/Menu-Finish-Game.unity
+    guid: 014b0282a11603d4a956ee5117151b86
   m_configObjects: {}
