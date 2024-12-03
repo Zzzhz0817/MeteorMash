@@ -1,7 +1,7 @@
 INCLUDE Globals.ink
 // First Entry Dialogue: Reaching the Spaceship  
 
-I slam into the ship’s outer airlock, gripping the handle like a lifeline. The hatch cycles open, and I stumble inside. I rip off my helmet, gasping for air. 
+I slam into the ship’s outer airlock, gripping the handle like a lifeline. The hatch cycles open, barely. I fling myself inside. 
 
 “Made it… barely.”
     * [Check others' signals on the console.] -> check_signals
@@ -15,14 +15,12 @@ I tap through the data. The readings confirm it: no vital signs, no chance of re
 
 I slam my fist against the console, taking a moment to steady my breathing. The wreckage of the alien warship still hangs in the distance, a cold reminder of what went wrong. 
 
-I glance at the control room door—it’s jammed shut.  
-
 “Alright. No time to mourn. They wouldn’t want me to die here, too.”
     * [Check the system diagnostics on the console.]
 -> check_system
 
 === check_system ===
-The system diagnostics tell me what I need to know. 
+The system diagnostics tell me what I need to know. The airlock is damaged and has a limited oxygen supply. The ship will not fly without authorization.
 
 To pilot the ship, I’ll need three things: a Hull laser to cut into the jammed control room door, the Captain’s ID card to start the system, and a Sealant to patch the open door.
 ~task_received = true
@@ -33,5 +31,5 @@ The display zooms out, showing the locations of their bodies—each drifting on 
 
 “Alright. One thing at a time. Get the tools, seal the door, get out of here. You can do this.”  
 
-I pull the helmet back on, the hiss of the suit breaks the silence as I step back into space. The HUD highlights the markers.
+I refill my oxygen with what's left of the airlock's emergency supply. The hiss of the suit breaks the silence as I step back into space. The HUD highlights the markers.
 -> DONE
