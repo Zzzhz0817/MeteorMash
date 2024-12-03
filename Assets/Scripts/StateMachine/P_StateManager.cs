@@ -31,12 +31,12 @@ public class P_StateManager : MonoBehaviour
     [HideInInspector] public Animator anim;
     public GameObject laser;
     
-    private AudioSource breathingAudioSource;
-    private AudioSource backgroundMusicAudioSource;
-    private AudioSource crawlingAudioSource;
-    private AudioSource oxygenBoostingAudioSource;
-    private AudioSource grabbingAudioSource;
-    private AudioSource otherSoundsAudioSource;
+    public AudioSource breathingAudioSource;
+    public AudioSource backgroundMusicAudioSource;
+    public AudioSource crawlingAudioSource;
+    public AudioSource oxygenBoostingAudioSource;
+    public AudioSource grabbingAudioSource;
+    public AudioSource otherSoundsAudioSource;
 
     public AudioClip[] breathingClips;
     public AudioClip[] backgroundMusicClips;

@@ -3917,8 +3917,8 @@ MonoBehaviour:
   suffocationClip: {fileID: 8300000, guid: a24fce83116fb544f98c136fc36dbbbc, type: 3}
   jumpClip: {fileID: 8300000, guid: ff3d366e3a001514b9a05bafb0906715, type: 3}
   moveSpeed: 0.3
-  rotationSpeed: 500
-  rollSpeed: 50
+  rotationSpeed: 100
+  rollSpeed: 10
   acceleration: 30
   drag: 0.1
   oxygen: 100
