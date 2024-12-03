@@ -3,11 +3,11 @@ using UnityEngine.SceneManagement;
 
 public class UIButtonFunctions : MonoBehaviour
 {
-    public GameObject player;
 
     public void StartGame()
     {
-        SceneManager.LoadScene("MainScene");
+        SceneManager.LoadScene("Prototype0");
+        Debug.Log("Start");
     }
 
     public void ToTitle()

@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class P_StateManager : MonoBehaviour
 {
@@ -39,7 +40,8 @@ public class P_StateManager : MonoBehaviour
 
     public AudioClip[] breathingClips;
     public AudioClip[] backgroundMusicClips;
-    public AudioClip idCardClip, laserCutterClip, sealantSprayClip, oxygenRefillClip, landingClip, crawlingClip, oxygenBoostingClip, grabbingClip;
+    public AudioClip idCardClip, laserCutterClip, sealantSprayClip, oxygenRefillClip,
+            landingClip, crawlingClip, oxygenBoostingClip, grabbingClip, suffocationClip;
     #endregion
 
     #region Movement Variables
@@ -58,11 +60,13 @@ public class P_StateManager : MonoBehaviour
     public bool isCrawling = false;
     public bool isBoosting = false;
     public bool isGrabbing = false;
+    private bool isSuffocating = false;
     #endregion
 
     #region UI Elements
     public OxygenSlideBar oxygenSlideBar;
     public PowerSlideBar powerSlideBar;
+    public CanvasGroup fadePanel;
     #endregion
 
 
@@ -125,6 +129,8 @@ public class P_StateManager : MonoBehaviour
     private void Update()
     {
         currentState.UpdateState(this);
+        
+        // Hand Glow Logic
         if (HandGlow == false)
         {
             HandGlowL.Stop();
@@ -136,33 +142,35 @@ public class P_StateManager : MonoBehaviour
             HandGlowR.Play();
         }
 
+        // Lock Camera Rotation on Z-axis
         if (mainCamera != null)
         {
-            // Get the current local rotation
             Quaternion currentRotation = mainCamera.localRotation;
-
-            // Lock the Z-axis rotation to 0
             mainCamera.localRotation = Quaternion.Euler(currentRotation.eulerAngles.x, currentRotation.eulerAngles.y, 0f);
         }
 
+        // Oxygen Logic
         if (oxygen > 0f)
         {
-            oxygen -= oxygenConsumptionRate * Time.deltaTime; // Consume oxygen at a rate
-            oxygen = Mathf.Clamp(oxygen, 0f, 100f);      // Ensure oxygen stays in bounds
+            oxygen -= oxygenConsumptionRate * Time.deltaTime;
+            oxygen = Mathf.Clamp(oxygen, 0f, 100f);
             UpdateOxygenUI();
 
-            // Adjust breathing sound volume based on oxygen level
+            // Adjust breathing sound volume
             breathingAudioSource.volume = oxygen < 20f ? 0.3f : 0.1f;
         }
-        else
+        else if (!isSuffocating)
         {
-            Debug.LogError("Oxygen depleted!");
+            StartCoroutine(SuffocationSequence());
+            isSuffocating = true;
         }
 
+        // Update Audio Volumes
         crawlingAudioSource.volume = isCrawling ? 1f : 0f;
         oxygenBoostingAudioSource.volume = isBoosting ? 1f : 0f;
         grabbingAudioSource.volume = isGrabbing ? 1f : 0f;
     }
+
 
     public void SwitchState(P_State state)
     {
@@ -270,6 +278,28 @@ public class P_StateManager : MonoBehaviour
         }
     }
 
+    private IEnumerator SuffocationSequence()
+    {
+        PlaySound("Suffocation");
+
+        float fadeDuration = 5f;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            if (fadePanel != null)
+            {
+                fadePanel.alpha = Mathf.Lerp(0f, 1f, elapsedTime / fadeDuration); // Fade in
+            }
+            yield return null;
+        }
+
+        // Load the death scene
+        SceneManager.LoadScene("Menu-Oxygen-Dead");
+    }
+
+
     public void PlaySound(string soundName)
     {
         AudioClip clip = null;
@@ -277,24 +307,28 @@ public class P_StateManager : MonoBehaviour
         switch (soundName)
         {
             case "IDCard":
-                otherSoundsAudioSource.volume = 1f;
+                otherSoundsAudioSource.volume = .3f;
                 clip = idCardClip;
                 break;
             case "LaserCutter":
-                otherSoundsAudioSource.volume = 1f;
+                otherSoundsAudioSource.volume = .3f;
                 clip = laserCutterClip;
                 break;
             case "SealantSpray":
-                otherSoundsAudioSource.volume = 1f;
+                otherSoundsAudioSource.volume = .3f;
                 clip = sealantSprayClip;
                 break;
             case "OxygenRefill":
-                otherSoundsAudioSource.volume = 1f;
+                otherSoundsAudioSource.volume = .3f;
                 clip = oxygenRefillClip;
                 break;
             case "Landing":
                 otherSoundsAudioSource.volume = .3f;
                 clip = landingClip;
+                break;
+            case "Suffocation":
+                otherSoundsAudioSource.volume = .3f;
+                clip = suffocationClip;
                 break;
         }
 
