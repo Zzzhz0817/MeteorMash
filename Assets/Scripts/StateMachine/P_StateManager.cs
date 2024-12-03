@@ -312,11 +312,11 @@ public class P_StateManager : MonoBehaviour
                 clip = idCardClip;
                 break;
             case "LaserCutter":
-                otherSoundsAudioSource.volume = .3f;
+                otherSoundsAudioSource.volume = .15f;
                 clip = laserCutterClip;
                 break;
             case "SealantSpray":
-                otherSoundsAudioSource.volume = .3f;
+                otherSoundsAudioSource.volume = .15f;
                 clip = sealantSprayClip;
                 break;
             case "OxygenRefill":

@@ -31,7 +31,7 @@ public class P_GrabbingState : P_State
 
         if (Physics.Raycast(player.transform.position, forward, out hit, rayLength))
         {
-            if (hit.collider.CompareTag("Static Asteroid"))
+            if (hit.collider.CompareTag("Static Asteroid") || hit.collider.CompareTag("Moving Asteroid"))
             {
                 // Calculate force magnitude based on player's current speed
                 float currentSpeed = player.rb.velocity.magnitude;

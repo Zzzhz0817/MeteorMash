@@ -62,7 +62,7 @@ public class P_PushingState : P_State
         if (!Input.GetMouseButton(0))
         {
             Vector3 pushDirection = player.mainCamera.forward;
-            player.rb.AddForce(pushDirection * (power * 0.02f + .45f), ForceMode.Impulse);
+            player.rb.AddForce(pushDirection * (power * 0.02f + .6f), ForceMode.Impulse);
             player.transform.rotation = player.mainCamera.rotation;
             player.SwitchState(player.flyingState);
             return;
