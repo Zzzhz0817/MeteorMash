@@ -11,11 +11,9 @@ public class DialogueTriggerTutorial : DialogueTrigger
         if (!triggered && playerInRange)
         {
             if (!DialogueManager.GetInstance().guidanceIsPlaying && !DialogueManager.GetInstance().dialogueIsPlaying){
-                if(playerInRange = true)
-                {
-                    DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
-                    triggered = true;
-                }
+                DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
+                DialogueManager.GetInstance().ContinueStory();
+                triggered = true;
             }
         }
     }
