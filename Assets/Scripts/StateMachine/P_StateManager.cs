@@ -56,6 +56,7 @@ public class P_StateManager : MonoBehaviour
     public float oxygen = 100f;
     public float power = 0f;
     public float oxygenConsumptionRate = 0.2f; // Amount of oxygen to consume per second
+    public float boostMult = 0f;
     private Coroutine oxygenConsumptionCoroutine;
     public bool isCrawling = false;
     public bool isBoosting = false;

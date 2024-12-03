@@ -45,19 +45,19 @@ public class P_FlyingState : P_State
         {
             if (horizontalInput != 0f)
             {
-                player.oxygen -= player.oxygenConsumptionRate * Time.deltaTime;
+                player.oxygen -= (player.oxygenConsumptionRate * player.boostMult) * Time.deltaTime;
             }
             if (verticalInput != 0f)
             {
-                player.oxygen -= player.oxygenConsumptionRate * Time.deltaTime;
+                player.oxygen -= (player.oxygenConsumptionRate * player.boostMult) * Time.deltaTime;
             }
             if (shiftHeld)
             {
-                player.oxygen -= player.oxygenConsumptionRate * Time.deltaTime;
+                player.oxygen -= (player.oxygenConsumptionRate * player.boostMult) * Time.deltaTime;
             }
             if (spaceHeld)
             {
-                player.oxygen -= player.oxygenConsumptionRate * Time.deltaTime;
+                player.oxygen -= (player.oxygenConsumptionRate * player.boostMult) * Time.deltaTime;
             }
 
             if (horizontalInput != 0f || verticalInput != 0f || shiftHeld || spaceHeld)
