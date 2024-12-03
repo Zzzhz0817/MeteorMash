@@ -21,6 +21,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private GameObject guidancePanel;
     [SerializeField] private TextMeshProUGUI guidanceText;
     [SerializeField] private P_StateManager player;
+    [SerializeField] private MapManager mapManager;
 
     protected bool hasVisitedShip = false;
 
@@ -176,10 +177,13 @@ public class DialogueManager : MonoBehaviour
                 player.PlaySound("OxygenRefill");
                 player.AddOxygen(50f);
             }
-
+            if (dialogueText.text.Contains("With a thud, I land on its surface"))
+            {
+                mapManager.AsteroidOutlineDisable();
+            }
             if (dialogueText.text.Contains("The HUD highlights the markers."))
             {
-                hasVisitedShip = true;
+                mapManager.ActivateMissionTracker();
             }
             // Using Laser
             if (dialogueText.text.Contains("The door to the control room looms ahead, its surface warped and jammed tight"))

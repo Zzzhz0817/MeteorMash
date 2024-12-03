@@ -26,11 +26,16 @@ public class MapManager : MonoBehaviour
     [SerializeField] private GameObject[] movingAsteroids;
     [SerializeField] private List<GameObject> movingAsteroidTracker;
     [SerializeField] private GameObject[] missions;
+    [SerializeField] private List<GameObject> missionTracker;
     [SerializeField] private GameObject[] ship;
     [SerializeField] private GameObject prefabAsset;
     [SerializeField] private GameObject missionAsset;
     [SerializeField] private GameObject shipAsset;
     [SerializeField] private GameObject parentLadder;
+    [SerializeField] private DialogueManager dialogueManager;
+    [SerializeField] private Outline asteroidOutline;
+    [SerializeField] public bool asteroidVisited;
+    [SerializeField] public bool spaceshipVisited;
     #endregion
 
 
@@ -45,6 +50,8 @@ public class MapManager : MonoBehaviour
         points[1] = trackerAnchor.transform.position;
         lineRenderer.SetPositions(points);
         posHeight = true;
+        asteroidVisited = false;
+        spaceshipVisited = false;
         BuildMap();
     }
 
@@ -56,7 +63,6 @@ public class MapManager : MonoBehaviour
         MakeLine();
         CheckHeight();
     }
-
     private void BuildMap()
     {
         staticAsteroids = GameObject.FindGameObjectsWithTag("Static Asteroid");
@@ -83,6 +89,7 @@ public class MapManager : MonoBehaviour
             Vector3 waypoint = new Vector3(0, 0, 0);
             GameObject mission = Instantiate(missionAsset, waypoint, transform.rotation) as GameObject;
             mission.transform.SetParent(parentLadder.transform);
+            missionTracker.Add(mission);
             Debug.Log("I've made a POI");
             mission.transform.localPosition = new Vector3(poi.transform.position.x * mapScalar, poi.transform.position.y * mapScalar, poi.transform.position.z * mapScalar);
         }
@@ -93,6 +100,25 @@ public class MapManager : MonoBehaviour
             goal.transform.SetParent(parentLadder.transform);
             Debug.Log("I've made the ship");
             goal.transform.localPosition = new Vector3(ship.transform.position.x * mapScalar, ship.transform.position.y * mapScalar, ship.transform.position.z * mapScalar);
+        }
+        for (int i = 0; i < missionTracker.Count; i++)
+        {
+            missionTracker[i].gameObject.SetActive(false);
+        }
+    }
+
+
+    public void AsteroidOutlineDisable()
+    {
+        asteroidOutline.enabled = false;
+    }
+
+
+    public void ActivateMissionTracker()
+    {
+        for (int i = 0; i < missionTracker.Count; i++)
+        {
+            missionTracker[i].gameObject.SetActive(true);
         }
     }
 
