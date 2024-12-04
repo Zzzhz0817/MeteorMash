@@ -10,6 +10,12 @@ public class UIButtonFunctions : MonoBehaviour
         Debug.Log("Start");
     }
 
+    public void RestartGame()
+    {
+        SceneManager.LoadScene("Prototype1");
+        Debug.Log("REStart");
+    }
+
     public void ToTitle()
     {
         SceneManager.LoadScene("Menu-Title");

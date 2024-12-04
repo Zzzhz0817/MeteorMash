@@ -106,7 +106,7 @@ public class P_GroundedState : P_State
 
         if (Physics.Raycast(raycastOrigin, raycastDirection, out hitInfo, raycastDistance))
         {
-            if (hitInfo.collider.CompareTag("Static Asteroid"))
+            if (hitInfo.collider.CompareTag("Static Asteroid") || hitInfo.collider.CompareTag("Moving Asteroid"))
             {
                 Vector3 surfaceNormal = hitInfo.normal;
 
