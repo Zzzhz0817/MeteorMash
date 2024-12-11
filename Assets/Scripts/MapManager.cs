@@ -21,13 +21,8 @@ public class MapManager : MonoBehaviour
     #region tracking objects
     [SerializeField] private P_StateManager player;
     [SerializeField] private GameObject playerTracker;
+    [SerializeField] private GameObject map;
     [SerializeField] private GameObject trackerAnchor;
-    [SerializeField] private GameObject[] staticAsteroids;
-    [SerializeField] private GameObject[] movingAsteroids;
-    [SerializeField] private List<GameObject> movingAsteroidTracker;
-    [SerializeField] private GameObject[] missions;
-    [SerializeField] private List<GameObject> missionTracker;
-    [SerializeField] private GameObject[] ship;
     [SerializeField] private GameObject prefabAsset;
     [SerializeField] private GameObject missionAsset;
     [SerializeField] private GameObject shipAsset;
@@ -36,6 +31,12 @@ public class MapManager : MonoBehaviour
     [SerializeField] private Outline asteroidOutline;
     [SerializeField] public bool asteroidVisited;
     [SerializeField] public bool spaceshipVisited;
+    [SerializeField] private GameObject[] staticAsteroids;
+    [SerializeField] private GameObject[] movingAsteroids;
+    [SerializeField] private List<GameObject> movingAsteroidTracker;
+    [SerializeField] private GameObject[] missions;
+    [SerializeField] private List<GameObject> missionTracker;
+    [SerializeField] private GameObject[] ship;
     #endregion
 
 
@@ -60,7 +61,7 @@ public class MapManager : MonoBehaviour
     {
         timeCount = timeCount + Time.deltaTime;
         TrackerUpdate();
-        MakeLine();
+        //MakeLine();
         CheckHeight();
     }
     private void BuildMap()
@@ -142,7 +143,8 @@ public class MapManager : MonoBehaviour
     {
         playerTracker.transform.localRotation = player.transform.rotation;
         playerTracker.transform.localPosition = new Vector3(player.transform.position.x * mapScalar, player.transform.position.y * mapScalar, player.transform.position.z * mapScalar);
-        trackerAnchor.transform.localPosition = new Vector3(player.transform.position.x * mapScalar, 0, player.transform.position.z * mapScalar);
+        //trackerAnchor.transform.localPosition = new Vector3(playerTracker.transform.position.x * mapScalar, 0, playerTracker.transform.position.z * mapScalar);
+        map.transform.localPosition = new Vector3(player.transform.position.x * mapScalar, player.transform.position.y * mapScalar, player.transform.position.z * mapScalar);
         for (int i = 0; i < movingAsteroidTracker.Count; i++)
         {
             movingAsteroidTracker[i].transform.localPosition = new Vector3(movingAsteroids[i].transform.position.x * mapScalar, movingAsteroids[i].transform.position.y * mapScalar, movingAsteroids[i].transform.position.z * mapScalar);
