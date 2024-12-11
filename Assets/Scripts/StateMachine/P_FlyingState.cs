@@ -37,7 +37,9 @@ public class P_FlyingState : P_State
         float mouseX = Input.GetAxis("Mouse X");
         float mouseY = Input.GetAxis("Mouse Y");
         float rollInput = Input.GetKey(KeyCode.Q) ? -1f : Input.GetKey(KeyCode.E) ? 1f : 0f;
-        bool shiftHeld = Input.GetKey(KeyCode.LeftShift);
+        //bool shiftHeld = Input.GetKey(KeyCode.LeftShift);
+        bool wHeld = Input.GetKey(KeyCode.W);
+        bool ctrlHeld = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl);
         bool spaceHeld = Input.GetKey(KeyCode.Space);
 
         // Consume air
@@ -51,7 +53,7 @@ public class P_FlyingState : P_State
             {
                 player.oxygen -= (player.oxygenConsumptionRate * player.boostMult) * Time.deltaTime;
             }
-            if (shiftHeld)
+            if (ctrlHeld)
             {
                 player.oxygen -= (player.oxygenConsumptionRate * player.boostMult) * Time.deltaTime;
             }
@@ -60,7 +62,7 @@ public class P_FlyingState : P_State
                 player.oxygen -= (player.oxygenConsumptionRate * player.boostMult) * Time.deltaTime;
             }
 
-            if (horizontalInput != 0f || verticalInput != 0f || shiftHeld || spaceHeld)
+            if (horizontalInput != 0f || verticalInput != 0f || ctrlHeld || spaceHeld)
             {
                 player.isBoosting = true;
             }
@@ -87,23 +89,27 @@ public class P_FlyingState : P_State
         
 
         // Movement
-        if (shiftHeld)
+        if (wHeld)
         {
-            player.rb.AddRelativeForce(Vector3.forward * player.acceleration * Time.deltaTime, ForceMode.Acceleration);
             player.anim.SetBool("Fast-Fly", true);
             // TO DO: oxygen consumption
         }
-        else if (!shiftHeld)
+        else if (!wHeld)
         {
             player.anim.SetBool("Fast-Fly", false);
         }
 
-        if (spaceHeld)
+        if (ctrlHeld)
         {
-            player.rb.AddRelativeForce(-Vector3.forward * player.acceleration * Time.deltaTime, ForceMode.Acceleration);
+            player.rb.AddRelativeForce(-Vector3.up * player.acceleration * Time.deltaTime, ForceMode.Acceleration);
         }
 
-        Vector3 moveDirection = new Vector3(horizontalInput, verticalInput, 0f);
+        if (spaceHeld)
+        {
+            player.rb.AddRelativeForce(Vector3.up * player.acceleration * Time.deltaTime, ForceMode.Acceleration);
+        }
+
+        Vector3 moveDirection = new Vector3(horizontalInput, 0f, verticalInput);
         if (moveDirection != Vector3.zero)
         {
             player.rb.AddRelativeForce(moveDirection * player.acceleration * Time.deltaTime, ForceMode.Acceleration);

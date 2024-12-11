@@ -44,7 +44,7 @@ I spot a small asteroid floating between me and the ship. If I can land on it an
 With a shaky hand, I activate the suit’s air thrusters.
 
 // add Beginner's Tutorial for orienting using air thrusters here (WASDQE, shift, space)
-[Tutorial: Press 'WASD' to move around, and press 'Q' and 'E' to spin. You can also press 'Shift' to accelerate and 'Space' to slow down. All of those actions uses oxygen.]
+[Tutorial: Press 'WASD' to move around, and press 'Q' and 'E' to spin. You can also press 'Space' to going up and 'Ctrl' to going down. All of those actions uses oxygen.]
 
 // add Beginner's Tutorial for graping the asteroid here
 [Tutorial: When getting closer to an asteroid with low speed, hold Left Mouse Button to prepare for grounding. You must keep holding Left Mouse Button to remain grounded.]

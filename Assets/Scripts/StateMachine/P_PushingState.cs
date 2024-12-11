@@ -50,7 +50,7 @@ public class P_PushingState : P_State
         player.SetPower(power);
         player.UpdatePowerUI();
         float angle = Vector3.Angle(player.transform.forward, player.mainCamera.forward);
-        if (angle < 89f)
+        if (angle < 74f)
         {
             player.SwitchState(player.groundedState);
             return;

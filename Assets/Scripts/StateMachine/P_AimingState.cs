@@ -52,7 +52,7 @@ public class P_AimingState : P_State
 
 
         float angle = Vector3.Angle(player.transform.forward, player.mainCamera.forward);
-        if (angle < 89f)
+        if (angle < 74f)
         {
             player.SwitchState(player.groundedState);
             return;

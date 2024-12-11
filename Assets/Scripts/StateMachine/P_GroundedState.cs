@@ -60,7 +60,7 @@ public class P_GroundedState : P_State
         AnimTracker(player);
 
         float angle = Vector3.Angle(player.transform.forward, player.mainCamera.forward);
-        if (angle > 89f)
+        if (angle > 74f)
         {
             player.SwitchState(player.aimingState);
             return;
