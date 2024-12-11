@@ -141,7 +141,7 @@ public class MapManager : MonoBehaviour
 
     private void TrackerUpdate()
     {
-        playerTracker.transform.localRotation = player.transform.rotation;
+        playerTracker.transform.localRotation = player.mainCamera.rotation;
         playerTracker.transform.localPosition = new Vector3(player.transform.position.x * mapScalar, player.transform.position.y * mapScalar, player.transform.position.z * mapScalar);
         //trackerAnchor.transform.localPosition = new Vector3(playerTracker.transform.position.x * mapScalar, 0, playerTracker.transform.position.z * mapScalar);
         map.transform.localPosition = new Vector3(player.transform.position.x * mapScalar, player.transform.position.y * mapScalar, player.transform.position.z * mapScalar);
