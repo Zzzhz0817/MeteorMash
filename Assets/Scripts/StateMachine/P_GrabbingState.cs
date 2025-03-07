@@ -61,6 +61,9 @@ public class P_GrabbingState : P_State
                 {
                     player.PlaySound("Landing");
                     player.groundedObject = hit.transform;
+                    player.landingEffectL.Play();
+                    player.landingEffectR.Play();
+                    
                     player.SwitchState(player.groundedState);
                 }
             }

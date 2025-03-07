@@ -8,6 +8,8 @@ public class P_StateManager : MonoBehaviour
     public bool HandGlow = false;
     public ParticleSystem HandGlowL;
     public ParticleSystem HandGlowR;
+    public ParticleSystem landingEffectL;
+    public ParticleSystem landingEffectR;
     #endregion
 
     #region States
@@ -42,6 +44,7 @@ public class P_StateManager : MonoBehaviour
     public AudioClip[] backgroundMusicClips;
     public AudioClip idCardClip, laserCutterClip, sealantSprayClip, oxygenRefillClip,
             landingClip, crawlingClip, oxygenBoostingClip, grabbingClip, suffocationClip, jumpClip;
+
     #endregion
 
     #region Movement Variables
