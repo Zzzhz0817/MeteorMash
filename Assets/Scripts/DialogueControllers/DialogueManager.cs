@@ -36,6 +36,8 @@ public class DialogueManager : MonoBehaviour
     private static DialogueManager instance;
 
     private DialogueVariables dialogueVariables;
+    private bool _inDialogueMode = false;
+    private bool _inGuidanceMode = false;
 
     private void Awake()
     {
@@ -59,6 +61,7 @@ public class DialogueManager : MonoBehaviour
         guidanceIsPlaying = false;
         dialoguePanel.SetActive(false);
         guidancePanel.SetActive(false);
+        LockCursor();
 
         // get all choices text
         choicesText = new TextMeshProUGUI[choices.Length];
@@ -72,11 +75,37 @@ public class DialogueManager : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            UnlockCursor();
+        }
+        else if (Input.GetMouseButtonDown(1)) // Right click to relock
+        {
+            LockCursor();
+        }
         if (dialogueIsPlaying && (Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.Return)))
         {
             ContinueStory();
         }
     }
+
+    private void LockCursor()
+    {
+        if (!_inDialogueMode && !_inGuidanceMode)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+        
+    }
+
+    private void UnlockCursor()
+    {
+        
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
 
     public void EnterGuidanceMode(string guidance)
     {
@@ -84,6 +113,8 @@ public class DialogueManager : MonoBehaviour
         guidancePanel.SetActive(true);
         guidanceIsPlaying = true;
         guidanceText.text = guidance;
+        _inGuidanceMode = true;
+        UnlockCursor();
     }
 
     public void EnterDialogueMode(TextAsset inkJSON)
@@ -94,6 +125,8 @@ public class DialogueManager : MonoBehaviour
         player.SwitchState(player.dialogueState);
 
         dialogueVariables.StartListening(currentStory);
+        _inDialogueMode = true;
+        UnlockCursor();
 
         // ContinueStory();
     }
@@ -106,6 +139,8 @@ public class DialogueManager : MonoBehaviour
         dialogueIsPlaying = false;
         dialogueText.text = "";
         player.SwitchToPreviousState();
+        _inDialogueMode = false;
+        LockCursor();
     }
 
     public void ExitGuidanceMode()
@@ -114,6 +149,8 @@ public class DialogueManager : MonoBehaviour
         guidancePanel.SetActive(false);
         guidanceIsPlaying = false;
         guidanceText.text = "";
+        _inGuidanceMode = false;
+        LockCursor();
     }
 
     public void ContinueStory()
